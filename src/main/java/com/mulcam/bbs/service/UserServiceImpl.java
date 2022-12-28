@@ -19,8 +19,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> getUserList(int page) {
-		// TODO Auto-generated method stub
-		return null;
+		int offset = (page - 1) * 10;
+		List<User> list = userDao.getUserList(offset);
+		return list;
 	}
 
 	@Override
@@ -30,22 +31,24 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void registerUser(User u) {
-		String cryptedPwd = BCrypt.hashpw(u.getPwd(), BCrypt.gensalt()); 
-		u.setPwd(cryptedPwd);
-		userDao.registerUser(u);
+	public void registerUser(User user) {
+		String cryptedPwd = BCrypt.hashpw(user.getPwd(), BCrypt.gensalt()); 
+		user.setPwd(cryptedPwd);
+		userDao.insertUser(user);
 	}
 
 	@Override
-	public void updateUser(User u) {
-		// TODO Auto-generated method stub
-		
+	public void updateUser(User user, String newPwd) {
+		if (newPwd.length() > 0) {
+			String cryptedPwd = BCrypt.hashpw(newPwd, BCrypt.gensalt());
+			user.setPwd(cryptedPwd);
+		}
+		userDao.updateUser(user);	 
 	}
 
 	@Override
 	public void deleteUser(String uid) {
-		// TODO Auto-generated method stub
-		
+		userDao.deleteUser(uid);
 	}
 
 	@Override
@@ -62,7 +65,11 @@ public class UserServiceImpl implements UserService {
 		} 				// uid 가 없음
 		return UserService.UID_NOT_EXIST;
 	}
-	
-	
+
+	@Override
+	public int getUserCount() {
+		int count = userDao.getUserCount();
+		return count;
+	}
 
 }

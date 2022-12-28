@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.mulcam.bbs.entity.User;
 
@@ -19,7 +20,16 @@ public interface UserDao {
 			+ "	LIMIT 10 OFFSET #{offset}")
 	public List<User> getUserList(int offset);
 	
-	@Insert("")
-	public void registerUser(User u);
+	@Insert("INSERT INTO users VALUES (#{uid}, #{pwd}, #{uname}, #{email}, DEFAULT, DEFAULT)")
+	public void insertUser(User user);
+	
+	@Update("UPDATE users SET pwd=#{pwd}, uname=#{uname}, email=#{email} WHERE uid=#{uid}")
+	public void updateUser(User user);
+	
+	@Update("UPDATE users SET isDeleted=1 WHERE uid=#{uid}")
+	public void deleteUser(String uid);
+	
+	@Select("SELECT COUNT(uid) FROM users WHERE isDeleted=0")
+	public int getUserCount();
 	
 }

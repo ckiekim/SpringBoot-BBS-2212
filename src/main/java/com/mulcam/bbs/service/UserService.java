@@ -15,12 +15,14 @@ public interface UserService {
 
 	User getUser(String uid);
 
-	void registerUser(User u);
+	void registerUser(User user);
 	
-	void updateUser(User u);
+	void updateUser(User user, String newPwd);
 	
 	void deleteUser(String uid);
 
 	int login(String uid, String pwd, HttpSession session);
+
+	int getUserCount();
 	
 }

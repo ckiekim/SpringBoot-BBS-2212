@@ -10,19 +10,19 @@ public class User {
 	private LocalDate regDate;
 	private int isDeleted;
 	
-	User() {}
-	User(String uid, String uname, String email) {
+	public User() {}
+	public User(String uid, String uname, String email) {
 		this.uid = uid;
 		this.uname = uname;
 		this.email = email;
 	}
-	User(String uid, String pwd, String uname, String email) {
+	public User(String uid, String pwd, String uname, String email) {
 		this.uid = uid;
 		this.pwd = pwd;
 		this.uname = uname;
 		this.email = email;
 	}
-	User(String uid, String pwd, String uname, String email, LocalDate regDate, int isDeleted) {
+	public User(String uid, String pwd, String uname, String email, LocalDate regDate, int isDeleted) {
 		this.uid = uid;
 		this.pwd = pwd;
 		this.uname = uname;

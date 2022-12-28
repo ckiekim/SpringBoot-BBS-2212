@@ -28,8 +28,8 @@
 			                    <strong class="card-title">삭제하시겠습니까?</strong>
 			                    <p class="card-text text-center">
 			                        <br>
-			                        <button class="btn btn-primary" onclick="location.href='/bbs/user/deleteConfirm?uid=${param.uid}'">삭제</button>
-			                        <button class="btn btn-secondary" onclick="location.href='/bbs/user/list?page=${currentUserPage}'">취소</button>
+			                        <button class="btn btn-primary" onclick="location.href='/bbs/user/deleteConfirm/${uid}'">삭제</button>
+			                        <button class="btn btn-secondary" onclick="location.href='/bbs/user/list/${currentUserPage}'">취소</button>
 			                    </p>
 			                </div>
 			            </div>			            
