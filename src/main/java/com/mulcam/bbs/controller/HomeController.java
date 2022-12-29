@@ -1,12 +1,12 @@
 package com.mulcam.bbs.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
 	
-	@RequestMapping("/bbs")
+	@GetMapping("/bbs")
 	public String index() {
 		return "redirect:/bbs/user/login";
 	}

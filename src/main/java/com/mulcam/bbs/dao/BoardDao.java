@@ -40,5 +40,12 @@ public interface BoardDao {
 	@Insert("INSERT INTO board VALUES(DEFAULT, #{uid}, #{title}, #{content},"
 			+ " DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{files})")
 	public void insertBoard(Board board);
+
+	@Update("UPDATE board SET title=#{title}, content=#{content}, "
+			+ " modTime=NOW(), files=#{files} WHERE bid=#{bid}")
+	public void updateBoard(Board board);
+
+	@Update("UPDATE board SET isDeleted=1 WHERE bid=#{bid}")
+	public void deleteBoard(int bid);
 	
 }

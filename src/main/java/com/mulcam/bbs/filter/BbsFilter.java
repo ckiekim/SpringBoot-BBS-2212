@@ -7,7 +7,6 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +18,7 @@ import org.springframework.stereotype.Component;
  * Servlet Filter implementation class MenuFilter
  */
 @Component
-@WebFilter("/*")
-public class MenuFilter extends HttpFilter implements Filter {
+public class BbsFilter extends HttpFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -28,12 +26,25 @@ public class MenuFilter extends HttpFilter implements Filter {
 		HttpSession session = httpRequest.getSession();
 		
 		String uri = httpRequest.getRequestURI();
+//		System.out.println("BbsFilter.uri:" + uri);
 		if (uri.contains("board"))
 			session.setAttribute("menu", "board");
 		else if (uri.contains("user"))
 			session.setAttribute("menu", "user");
 		else
 			session.setAttribute("menu", "");
+		
+		String[] urlPatterns = {"/board", "/file", "/user/list", "/user/update", "/user/delete"};
+		for (String routing: urlPatterns) {
+			if (uri.contains(routing)) {
+				String uid = (String) session.getAttribute("uid");
+				if (uid == null || uid.equals("")) {
+					httpResponse.sendRedirect("/bbs/user/login");
+					return;
+				}
+				break;
+			}
+		}
 		
 		chain.doFilter(request, response);
 	}

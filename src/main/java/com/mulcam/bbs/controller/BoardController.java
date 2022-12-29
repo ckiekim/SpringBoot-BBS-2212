@@ -40,7 +40,7 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-	@RequestMapping("/list")
+	@GetMapping("/list")
 	public String list(HttpServletRequest req, Model model) {
 		String page_ = req.getParameter("p");
 		String field = req.getParameter("f");
@@ -75,7 +75,7 @@ public class BoardController {
 		return "board/list";
 	}
 
-	@RequestMapping("/detail")
+	@GetMapping("/detail")
 	public String detail(HttpServletRequest req, Model model) {
 		int bid = Integer.parseInt(req.getParameter("bid"));
 		String uid = req.getParameter("uid");
@@ -138,10 +138,9 @@ public class BoardController {
 			try {
 				file.transferTo(fileName);
 			} catch (Exception e) {
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		}
-		
 		JSONUtil json = new JSONUtil();
 		String files = json.stringify(list);
 		Board board = new Board(uid, title, content, files); 
@@ -149,12 +148,82 @@ public class BoardController {
 		return "redirect:/bbs/board/list?p=1&f=&q=";
 	}
 	
-	
-	
+	@GetMapping("/update")
+	public String updateForm(HttpServletRequest req, Model model) {
+		int bid = Integer.parseInt(req.getParameter("bid"));
+		Board board = boardService.getBoard(bid);
+		HttpSession session = req.getSession();
+		
+		String jsonFiles = board.getFiles();
+		if (!(jsonFiles == null || jsonFiles.equals(""))) {
+			JSONUtil json = new JSONUtil();
+			List<String> fileList = json.parse(jsonFiles);
+			session.setAttribute("fileList", fileList);
+		}
+		model.addAttribute("board", board);
+		return "board/update";
+	}
 	
 	@Value("${spring.servlet.multipart.location}")
 	String uploadDir;
 	
+	@PostMapping("/update")
+	public String update(MultipartHttpServletRequest req) {
+		int bid = Integer.parseInt(req.getParameter("bid"));
+		String uid = req.getParameter("uid");
+		String title = (String) req.getParameter("title");
+		String content = (String) req.getParameter("content");
+		
+		HttpSession session = req.getSession();
+		List<String> additionalFileList = (List<String>) session.getAttribute("fileList");
+		String[] delFileList = req.getParameterValues("delFile");
+		for (String delName: delFileList) {
+			File delFile = new File(uploadDir + "/" + delName);
+			delFile.delete();
+			additionalFileList.remove(delName);
+		}
+		
+		List<MultipartFile> fileList = req.getFiles("files");
+		List<String> newFileList = new ArrayList<>();
+		// File upload
+		for (MultipartFile file: fileList) {
+			newFileList.add(file.getOriginalFilename());
+			
+			File fileName = new File(file.getOriginalFilename());
+			try {
+				file.transferTo(fileName);
+			} catch (Exception e) {
+//				e.printStackTrace();
+			}
+		}
+		for (String fname: newFileList)
+			additionalFileList.add(fname);
+		JSONUtil json = new JSONUtil();
+		String files = json.stringify(additionalFileList);
+		Board board = new Board(bid, title, content, files);
+		boardService.updateBoard(board);
+		
+		return "redirect:/bbs/board/detail?bid=" + bid + "&uid=" + uid + "&option=DNI";
+	}
+	
+	@GetMapping("/delete")
+	public String delete(HttpServletRequest req, Model model) {
+		int bid = Integer.parseInt(req.getParameter("bid"));
+		model.addAttribute("bid", bid);
+		return "board/delete";
+	}
+	
+	@GetMapping("/deleteConfirm")
+	public String deleteConfirm(HttpServletRequest req) {
+		int bid = Integer.parseInt(req.getParameter("bid"));
+		boardService.deleteBoard(bid);
+		
+		HttpSession session = req.getSession();
+		return "redirect:/bbs/board/list?p=" + session.getAttribute("currentBoardPage") + "&f=&q=";
+	}
+	
+	/* 아래의 코드는 과거 데이터와의 호환성 때문에 남겨둠 */
+
 	@GetMapping("/download")
 	public ResponseEntity<Resource> download(HttpServletRequest req) {
 		String fileName = req.getParameter("file");
