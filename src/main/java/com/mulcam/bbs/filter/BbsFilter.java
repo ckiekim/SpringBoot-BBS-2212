@@ -31,10 +31,14 @@ public class BbsFilter extends HttpFilter implements Filter {
 			session.setAttribute("menu", "board");
 		else if (uri.contains("user"))
 			session.setAttribute("menu", "user");
+		else if (uri.contains("api"))
+			session.setAttribute("menu", "api");
+		else if (uri.contains("crawling"))
+			session.setAttribute("menu", "crawling");
 		else
 			session.setAttribute("menu", "");
 		
-		String[] urlPatterns = {"/board", "/file", "/user/list", "/user/update", "/user/delete"};
+		String[] urlPatterns = {"/board", "/user/list", "/user/update", "/user/delete"};
 		for (String routing: urlPatterns) {
 			if (uri.contains(routing)) {
 				String uid = (String) session.getAttribute("uid");
