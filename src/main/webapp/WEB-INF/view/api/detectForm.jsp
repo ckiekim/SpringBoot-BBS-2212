@@ -14,7 +14,7 @@
             
             <!-- =================== main =================== -->
             <div class="col-sm-9">
-            	<h3><strong>네이버 인공지능 API 객체 탐지</strong></h3>
+            	<h3><strong>객체 탐지</strong> <small>(네이버 Object Detection API)</small></h3>
             	<hr>
                 <div class="row">
 				    <form action="/api/detect" method="post" enctype="multipart/form-data">

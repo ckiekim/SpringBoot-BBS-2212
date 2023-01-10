@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mulcam.bbs.service.MapUtil;
+import com.mulcam.bbs.service.TransUtil;
 
 
 @Controller
@@ -32,6 +33,7 @@ import com.mulcam.bbs.service.MapUtil;
 public class ApiController {
 
 	@Autowired private MapUtil mapUtil;
+	@Autowired private TransUtil transUtil;
 	@Value("${naver.accessId}") private String accessId;
 	@Value("${naver.secretKey}") private String secretKey;
 	@Value("${roadAddrKey}") private String roadAddrKey;
@@ -159,6 +161,30 @@ public class ApiController {
         model.addAttribute("fileName", fileName);
         model.addAttribute("jsonResult", sb.toString());
 		return "api/detectResult";
+	}
+	
+	@GetMapping("/translate")
+	public String translateForm(Model model) {
+		String[] langCode = {"ko", "en", "ja", "fr", "es", "zh-CN"};
+		String[] langName = {"한국어", "영어", "일본어", "프랑스어", "스페인어", "중국어 간체"};
+		List<List<String>> optionList = new ArrayList<>();
+		for (int i=0; i<langCode.length; i++) {
+			List<String> list = new ArrayList<>();
+			list.add(langCode[i]); list.add(langName[i]);
+			optionList.add(list);
+		}
+		model.addAttribute("options", optionList);
+		return "api/transForm";
+	}
+	
+	@PostMapping("/translate")
+	public String translate(String text, String lang, Model model) throws Exception {
+		String src = transUtil.detectLanguage(text);
+		String transText = transUtil.translate(src, lang, text);
+		model.addAttribute("lang", lang);
+		model.addAttribute("srcText", text);
+		model.addAttribute("dstText", transText);
+		return "api/transResult";
 	}
 	
 }

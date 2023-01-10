@@ -18,7 +18,7 @@
             
             <!-- =================== main =================== -->
             <div class="col-sm-9">
-            	<h3><strong>Hot Places</strong>(행안부 도로명주소, 네이버 Geocode/Static Map API)</h3>
+            	<h3><strong>Hot Places</strong> <small>(행안부 도로명주소, 네이버 Geocode/Static Map API)</small></h3>
             	<hr>
             	<form action="/api/hotPlaces" method="post">
 					<table class="table table-borderless">

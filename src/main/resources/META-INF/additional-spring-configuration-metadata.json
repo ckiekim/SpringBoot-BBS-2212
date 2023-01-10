@@ -28,5 +28,15 @@
     "name": "web.driver.path",
     "type": "java.lang.String",
     "description": "A description for 'web.driver.path'"
+  },
+  {
+    "name": "papago.accessId",
+    "type": "java.lang.String",
+    "description": "A description for 'papago.accessId'"
+  },
+  {
+    "name": "papago.secretKey",
+    "type": "java.lang.String",
+    "description": "A description for 'papago.secretKey'"
   }
 ]}

@@ -10,10 +10,10 @@
                     <a class="nav-link" href="#"><i class="fa-solid fa-house"></i> Home</a>
                 </li>
                 <li class="nav-item ms-3">
-                    <a class="nav-link ${(menu eq 'board') ? "active" : ''}" href="/bbs/board/list?p=1&f=&q="><i class="far fa-list-alt"></i> 게시판</a>
+                    <a class="nav-link ${menu eq 'board' ? "active" : ''}" href="/bbs/board/list?p=1&f=&q="><i class="far fa-list-alt"></i> 게시판</a>
                 </li>
                 <li class="nav-item ms-3">
-                    <a class="nav-link ${(menu eq 'user') ? "active" : ''}" href="/bbs/user/list/1"><i class="fas fa-user-friends"></i> 사용자</a>
+                    <a class="nav-link ${menu eq 'user' ? "active" : ''}" href="/bbs/user/list/1"><i class="fas fa-user-friends"></i> 사용자</a>
                 </li>
                 <li class="nav-item dropdown ms-3">
 	                <a class="nav-link dropdown-toggle ${(menu eq 'api') ? "active" : ''}" href="#" data-bs-toggle="dropdown">
@@ -22,10 +22,11 @@
 	                <div class="dropdown-menu">
 	                    <a class="dropdown-item" href="/api/hotPlaces">Hot Places</a>
 	                    <a class="dropdown-item" href="/api/detect">객체 검출</a>
+	                    <a class="dropdown-item" href="/api/translate">번역</a>
 	                </div>
 	            </li>
 	            <li class="nav-item dropdown ms-3">
-	                <a class="nav-link dropdown-toggle ${(menu eq 'crawling') ? "active" : ''}" href="#" data-bs-toggle="dropdown">
+	                <a class="nav-link dropdown-toggle ${menu eq 'crawling' ? "active" : ''}" href="#" data-bs-toggle="dropdown">
 	                    <i class="fa-solid fa-spider"></i> 크롤링
 	                </a>
 	                <div class="dropdown-menu">

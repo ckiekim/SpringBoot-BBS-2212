@@ -20,7 +20,7 @@
             
             <!-- =================== main =================== -->
             <div class="col-sm-9">
-			    <h3>네이버 인공지능 API 객체 탐지 결과</h3>
+			    <h3><strong>객체 탐지 결과</strong> <small>(네이버 Object Detection API)</small></h3>
 			    <hr>
 			    <canvas id="tcanvas" width="100" height="100"></canvas>
 			    <br><br>
