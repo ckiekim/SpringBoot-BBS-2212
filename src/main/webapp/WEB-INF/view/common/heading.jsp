@@ -14,6 +14,14 @@
     </style>
     <script>
     	$(document).ready(function() {
+    		$('#stateMsgBtn').click(function(e) {
+    			$('#stateMsgInput').attr({'class': 'mt-2'});
+    			$('#stateInput').attr({value: $('#stateMsg').text()});
+    		});
+    		$('#stateMsgSubmit').click(function(e) {
+    			$('#stateMsg').html($('#stateInput').val());
+    			$('#stateMsgInput').attr({'class': 'mt-2 d-none'});
+    		});
     		$('#weather').click(getWeatherInfo);
     	});
     	function getWeatherInfo() {
