@@ -12,3 +12,19 @@
         * { font-family: 'Noto Sans KR', sans-serif; }
         a { text-decoration: none; }
     </style>
+    <script>
+    	$(document).ready(function() {
+    		$('#weather').click(getWeatherInfo);
+    	});
+    	function getWeatherInfo() {
+    		$.ajax({
+    			type: "GET",
+                url: "/aside/weather",
+                data: {'addr': $('#addr').text()},
+                success: function(result) {
+                    console.log("success");
+                    $('#weatherInfo').html(result);
+                },
+    		});
+    	}
+    </script>
