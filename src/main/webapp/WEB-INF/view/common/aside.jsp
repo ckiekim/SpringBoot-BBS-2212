@@ -11,8 +11,7 @@
                     <img src="/img/twitter.png" height="16" class="me-2"><a href="#">twitter-id</a><br>
                     <img src="/img/homepage.png" height="16" class="me-2"><a href="#">www.homepage.co.kr</a><br>
                     <img src="/img/blog.png" height="16" class="me-2"><a href="#">blog.naver.com/blog-id</a><br>
-                    <img src="/img/addr.png" height="16" class="me-2">
-                    	<span id="addr">경기도 용인시</span>
+                    <img src="/img/addr.png" height="16" class="me-2"><span id="addr">서울시 광진구</span>
                     	<a href="#" id="weather"><span class="badge bg-secondary">날씨</span></a><br>
                     <div id="weatherInfo"></div>
                 </div>
