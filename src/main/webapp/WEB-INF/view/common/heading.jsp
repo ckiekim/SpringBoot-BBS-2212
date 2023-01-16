@@ -19,8 +19,17 @@
     			$('#stateInput').attr({value: $('#stateMsg').text()});
     		});
     		$('#stateMsgSubmit').click(function(e) {
-    			$('#stateMsg').html($('#stateInput').val());
     			$('#stateMsgInput').attr({'class': 'mt-2 d-none'});
+    			let stateInputVal = $('#stateInput').val();
+    			$.ajax({
+    				type: 'GET',
+    				url: '/aside/stateMsg',
+    				data: {stateMsg: stateInputVal},
+    				success: function(e) {
+    					console.log('state message:', stateInputVal);
+    					$('#stateMsg').html(stateInputVal);
+    				}
+    			});
     		});
     		$('#weather').click(getWeatherInfo);
     	});
