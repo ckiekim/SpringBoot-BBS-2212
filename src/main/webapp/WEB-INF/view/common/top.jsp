@@ -23,6 +23,7 @@
 	                    <a class="dropdown-item" href="/api/hotPlaces">Hot Places</a>
 	                    <a class="dropdown-item" href="/api/detect">객체 검출</a>
 	                    <a class="dropdown-item" href="/api/translate">번역</a>
+	                    <a class="dropdown-item" href="/api/speechRecog">음성 인식</a>
 	                </div>
 	            </li>
 	            <li class="nav-item dropdown ms-3">

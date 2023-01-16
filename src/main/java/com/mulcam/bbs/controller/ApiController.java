@@ -14,6 +14,8 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mulcam.bbs.service.MapUtil;
@@ -185,6 +188,66 @@ public class ApiController {
 		model.addAttribute("srcText", text);
 		model.addAttribute("dstText", transText);
 		return "api/transResult";
+	}
+	
+	@GetMapping("/speechRecog")
+	public String speechRecogForm() {
+		return "api/speechRecogForm";
+	}
+	
+	@PostMapping("/speechRecog")
+	public String speechRecog(String language, Model model) throws Exception {
+		String audioFile_ = uploadDir + "/rawAudio.wav";
+        File audioFile = new File(audioFile_);
+        String apiURL = "https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang=" + language;
+        URL url = new URL(apiURL);
+        
+        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        conn.setUseCaches(false);
+        conn.setDoOutput(true);
+        conn.setDoInput(true);
+        conn.setRequestProperty("Content-Type", "application/octet-stream");
+        conn.setRequestProperty("X-NCP-APIGW-API-KEY-ID", accessId);
+        conn.setRequestProperty("X-NCP-APIGW-API-KEY", secretKey);
+        
+        OutputStream os = conn.getOutputStream();
+        FileInputStream is = new FileInputStream(audioFile);
+        byte[] buffer = new byte[4096];
+        int bytesRead = -1;
+        while ((bytesRead = is.read(buffer)) != -1) {
+            os.write(buffer, 0, bytesRead);
+        }
+        os.flush(); is.close();
+
+        BufferedReader br = null;
+        int responseCode = conn.getResponseCode();
+        if(responseCode == 200) { // 정상 호출
+            br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else {  // 오류 발생
+            System.out.println("error!!!!!!! responseCode= " + responseCode);
+            br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        }
+        
+        String inputLine;
+        StringBuffer sb = new StringBuffer();
+        while ((inputLine = br.readLine()) != null) {
+            sb.append(inputLine);
+        }
+        br.close();
+        
+        JSONParser parser = new JSONParser();
+		JSONObject object = (JSONObject) parser.parse(sb.toString());
+		String text = (String) object.get("text");
+		model.addAttribute("text", text);
+		return "api/speechRecogResult";
+	}
+	
+	@ResponseBody
+	@PostMapping("/audioUpload")
+	public String audioUpload(MultipartFile audioBlob) throws Exception {
+		File uploadFile = new File("rawAudio.wav");
+		audioBlob.transferTo(uploadFile);
+		return "0";
 	}
 	
 }
