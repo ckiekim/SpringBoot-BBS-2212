@@ -70,7 +70,8 @@ public class ApiController {
 	
 	@PostMapping("/detect")
 	public String detect(MultipartFile upload, Model model) throws Exception {
-		File uploadFile = new File(upload.getOriginalFilename());
+		String detectFile_ = uploadDir + "/detect" + upload.getOriginalFilename();
+		File uploadFile = new File(detectFile_);
 		upload.transferTo(uploadFile);				// uploadDir에 파일 저장
 		String fileName = uploadFile.getName();
 		String jsonResult = apiUtil.getObjectDetectResult(fileName);
@@ -120,7 +121,8 @@ public class ApiController {
 	@ResponseBody
 	@PostMapping("/audioUpload")
 	public String audioUpload(MultipartFile audioBlob) throws Exception {
-		File uploadFile = new File("rawAudio.wav");
+		String audioFile_ = uploadDir + "/rawAudio.wav"; 
+		File uploadFile = new File(audioFile_);
 		audioBlob.transferTo(uploadFile);
 		return "0";
 	}

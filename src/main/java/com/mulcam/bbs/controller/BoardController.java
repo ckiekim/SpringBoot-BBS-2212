@@ -37,8 +37,8 @@ import com.mulcam.bbs.service.JSONUtil;
 @RequestMapping("/bbs/board")
 public class BoardController {
 
-	@Autowired
-	private BoardService boardService;
+	@Autowired private BoardService boardService;
+	@Value("${spring.servlet.multipart.location}") private String uploadDir;
 	
 	@GetMapping("/list")
 	public String list(HttpServletRequest req, Model model) {
@@ -133,8 +133,8 @@ public class BoardController {
 		// File upload
 		for (MultipartFile file: fileList) {
 			list.add(file.getOriginalFilename());
-			
-			File fileName = new File(file.getOriginalFilename());
+			String uploadFile = uploadDir + "/" + file.getOriginalFilename();
+			File fileName = new File(uploadFile);
 			try {
 				file.transferTo(fileName);
 			} catch (Exception e) {
@@ -164,9 +164,6 @@ public class BoardController {
 		return "board/update";
 	}
 	
-	@Value("${spring.servlet.multipart.location}")
-	String uploadDir;
-	
 	@PostMapping("/update")
 	public String update(MultipartHttpServletRequest req) {
 		int bid = Integer.parseInt(req.getParameter("bid"));
@@ -177,10 +174,13 @@ public class BoardController {
 		HttpSession session = req.getSession();
 		List<String> additionalFileList = (List<String>) session.getAttribute("fileList");
 		String[] delFileList = req.getParameterValues("delFile");
-		for (String delName: delFileList) {
-			File delFile = new File(uploadDir + "/" + delName);
-			delFile.delete();
-			additionalFileList.remove(delName);
+		if (delFileList != null) {
+			for (String delName: delFileList) {
+				File delFile = new File(uploadDir + "/" + delName);
+				delFile.delete();
+				additionalFileList.remove(delName);
+			}
+			session.setAttribute("fileList", additionalFileList);
 		}
 		
 		List<MultipartFile> fileList = req.getFiles("files");
@@ -188,8 +188,8 @@ public class BoardController {
 		// File upload
 		for (MultipartFile file: fileList) {
 			newFileList.add(file.getOriginalFilename());
-			
-			File fileName = new File(file.getOriginalFilename());
+			String uploadFile = uploadDir + "/" + file.getOriginalFilename();
+			File fileName = new File(uploadFile);
 			try {
 				file.transferTo(fileName);
 			} catch (Exception e) {

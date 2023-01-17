@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Controller
 @RequestMapping("/bbs/file")
 public class FileController {
+	@Value("${spring.servlet.multipart.location}") private String uploadDir;
 	
 	@ResponseBody
 	@PostMapping("/upload")
@@ -42,13 +43,13 @@ public class FileController {
 			String now = LocalDateTime.now().toString().substring(0,22).replaceAll("[-T:.]", "");
             int idx = fname.lastIndexOf('.');
             fname = now + fname.substring(idx);	// 유니크한 파일 이름으로 변경
-			File fileName = new File(fname);
+			File fileName = new File(uploadDir + "/" + fname);
 			try {
 				file.transferTo(fileName);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			url = "/bbs/file/download?file=" + fileName;
+			url = "/bbs/file/download?file=" + fname;
         }
 		String data = "<script> "
                 + "     window.parent.CKEDITOR.tools.callFunction(" 
@@ -56,9 +57,6 @@ public class FileController {
                 + "</script>";
 		return data;
 	}
-	
-	@Value("${spring.servlet.multipart.location}")
-	String uploadDir;
 	
 	@GetMapping("/download")
 	public ResponseEntity<Resource> download(HttpServletRequest req) {
