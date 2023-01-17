@@ -95,4 +95,41 @@ public class MapUtil {
 		return list;
 	}
 	
+	/**
+	 *  여러개 위치를 주면 그곳들의 좌표를 찾아 지도 API url을 반환하는 메소드
+	 */
+	public String getHotPlacesUrl(String[] places, int level) throws Exception {
+		List<List<String>> dataList = new ArrayList<>();
+		for (String place: places) {
+			if (place.equals("")) 
+				continue;
+			List<String> row = new ArrayList<>();
+			String roadAddr = getRoadAddr(place);
+			List<String> geocode = getGeocode(roadAddr);
+			row.add(place); row.add(roadAddr);
+			row.add(geocode.get(0)); row.add(geocode.get(1));
+			dataList.add(row);
+		}
+		
+		String marker = "";
+		double lngSum = 0.0, latSum = 0.0;
+		for (List<String> list: dataList) {
+			double lng = Double.parseDouble(list.get(2));
+			double lat = Double.parseDouble(list.get(3));
+			lngSum += lng; latSum += lat;
+			marker += "&markers=type:t|size:tiny|pos:" + lng + "%20" + lat + "|label:"
+					+ URLEncoder.encode(list.get(0), "utf-8") + "|color:red";
+		}
+		double lngCenter = lngSum / dataList.size();
+		double latCenter = latSum / dataList.size();
+		String url = "https://naveropenapi.apigw.ntruss.com/map-static/v2/raster"
+				+ "?w=" + 600 + "&h=" + 400
+				+ "&center=" + lngCenter + "," + latCenter
+				+ "&level=" + level + "&scale=" + 2
+				+ "&X-NCP-APIGW-API-KEY-ID=" + accessId
+				+ "&X-NCP-APIGW-API-KEY=" + secretKey;
+		
+		return url + marker;
+	}
+	
 }

@@ -38,5 +38,15 @@
     "name": "papago.secretKey",
     "type": "java.lang.String",
     "description": "A description for 'papago.secretKey'"
+  },
+  {
+    "name": "weatherKey",
+    "type": "java.lang.String",
+    "description": "A description for 'weatherKey'"
+  },
+  {
+    "name": "chatGptApiKey",
+    "type": "java.lang.String",
+    "description": "A description for 'chatGptApiKey'"
   }
 ]}

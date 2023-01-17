@@ -20,7 +20,7 @@
             
             <!-- =================== main =================== -->
             <div class="col-sm-9">
-            	<h3><strong>Pose Estimation</strong></h3>
+            	<h3><strong>Pose Estimation 결과</strong></h3>
             	<hr>
                 <canvas id="tcanvas" width="100" height="100"></canvas>
 			    <br><br>
