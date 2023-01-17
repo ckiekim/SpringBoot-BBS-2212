@@ -312,7 +312,7 @@ public class ApiController {
         br.close();
 		
         model.addAttribute("fileName", fileName);
-        model.addAttribute("jsonResutl", sb.toString());
+        model.addAttribute("jsonResult", sb.toString());
 		return "api/poseResult";
 	}
 	
