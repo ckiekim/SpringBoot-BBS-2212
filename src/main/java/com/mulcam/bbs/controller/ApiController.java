@@ -144,4 +144,16 @@ public class ApiController {
 		return "api/poseResult";
 	}
 	
+	@GetMapping("/sentiment")
+	public String sentimentForm() {
+		return "api/sentimentForm";
+	}
+	
+	@ResponseBody
+	@PostMapping("/sentiment")
+	public String sentiment(String content, Model model) throws Exception {
+		return apiUtil.getSentimentResult(content);
+//		return "api/sentimentResult";
+	}
+	
 }
