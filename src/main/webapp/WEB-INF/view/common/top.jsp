@@ -19,23 +19,25 @@
 	                <a class="nav-link dropdown-toggle ${(menu eq 'api') ? "active" : ''}" href="#" data-bs-toggle="dropdown">
 	                    <i class="fa-solid fa-cloud-arrow-down"></i> API's
 	                </a>
-	                <div class="dropdown-menu">
-	                    <a class="dropdown-item" href="/api/hotPlaces">Hot Places</a>
-	                    <a class="dropdown-item" href="/api/detect">객체 검출</a>
-	                    <a class="dropdown-item" href="/api/translate">번역</a>
-	                    <a class="dropdown-item" href="/api/speechRecog">음성 인식</a>
-	                    <a class="dropdown-item" href="/api/pose">Pose Estimation</a>
-	                </div>
+	                <ul class="dropdown-menu">
+	                    <li><a class="dropdown-item" href="/api/hotPlaces">Hot Places</a></li>
+	                    <li><a class="dropdown-item" href="/api/translate">번역</a></li>
+	                    <li><a class="dropdown-item" href="/api/sentiment">감성 분석</a></li>
+	                    <li><hr class="dropdown-divider"></hr></li>
+	                    <li><a class="dropdown-item" href="/api/detect">객체 검출</a></li>
+	                    <li><a class="dropdown-item" href="/api/pose">Pose Estimation</a></li>
+	                    <li><a class="dropdown-item" href="/api/speechRecog">음성 인식</a></li>
+	                </ul>
 	            </li>
 	            <li class="nav-item dropdown ms-3">
 	                <a class="nav-link dropdown-toggle ${menu eq 'crawling' ? "active" : ''}" href="#" data-bs-toggle="dropdown">
 	                    <i class="fa-solid fa-spider"></i> 크롤링
 	                </a>
-	                <div class="dropdown-menu">
-	                    <a class="dropdown-item" href="/crawling/interpark">인터파크</a>
-	                    <a class="dropdown-item" href="/crawling/genie2">지니차트</a>
-	                    <a class="dropdown-item" href="/crawling/fireStation">소방서</a>
-	                </div>
+	                <ul class="dropdown-menu">
+	                    <li><a class="dropdown-item" href="/crawling/interpark">인터파크</a></li>
+	                    <li><a class="dropdown-item" href="/crawling/genie2">지니차트</a></li>
+	                    <li><a class="dropdown-item" href="/crawling/fireStation">소방서</a></li>
+	                </ul>
 	            </li>
                 <li class="nav-item ms-3">
                     <a class="nav-link" href="/bbs/user/logout"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>

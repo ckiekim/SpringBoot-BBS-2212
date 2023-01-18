@@ -214,9 +214,13 @@ public class ApiUtil {
     	
     	JSONParser parser = new JSONParser();
 		JSONObject object = (JSONObject) parser.parse(sb.toString());
-		String text = (String) object.get("text");
+		JSONObject document = (JSONObject) object.get("document");
+		String sentiment = (String) document.get("sentiment");
+		JSONObject confidence = (JSONObject) document.get("confidence");
+		double proba = (Double) confidence.get(sentiment);
+		sentiment += String.format(" (%.2f%%)", proba);
 		
-		return text;
+		return sentiment;
 	}
 	
 }

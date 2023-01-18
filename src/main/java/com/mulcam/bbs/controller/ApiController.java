@@ -149,11 +149,12 @@ public class ApiController {
 		return "api/sentimentForm";
 	}
 	
-	@ResponseBody
 	@PostMapping("/sentiment")
 	public String sentiment(String content, Model model) throws Exception {
-		return apiUtil.getSentimentResult(content);
-//		return "api/sentimentResult";
+		String result = apiUtil.getSentimentResult(content);
+		model.addAttribute("content", content);
+		model.addAttribute("result", result);
+		return "api/sentimentResult";
 	}
 	
 }
