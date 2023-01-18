@@ -196,10 +196,17 @@ public class BoardController {
 //				e.printStackTrace();
 			}
 		}
-		for (String fname: newFileList)
+		for (String fname: newFileList) {
 			additionalFileList.add(fname);
+		}
+		List<String> newAdditionalFileList = new ArrayList<>();
+		for (String afname: additionalFileList) {
+			if (afname.equals(""))
+				continue;
+			newAdditionalFileList.add(afname);
+		}
 		JSONUtil json = new JSONUtil();
-		String files = json.stringify(additionalFileList);
+		String files = json.stringify(newAdditionalFileList);
 		Board board = new Board(bid, title, content, files);
 		boardService.updateBoard(board);
 		
