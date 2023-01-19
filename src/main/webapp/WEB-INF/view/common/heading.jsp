@@ -14,6 +14,27 @@
     </style>
     <script>
     	$(document).ready(function() {
+    		$('#profileBtn').click(function(e) {
+    			$('#profileInputDisp').attr({'class': 'mt-2'});
+    		});
+    		$('#profileSubmit').click(function(e) {
+    			$('#profileInputDisp').attr({'class': 'mt-2 d-none'});
+    			let profileInputVal = $('#profileInput')[0];
+    			console.log(profileInputVal.files[0]);
+    			const formData = new FormData();
+   				formData.append('profile', profileInputVal.files[0]);
+   				$.ajax({
+   					type: 'POST',
+    				url: '/aside/profile',
+    				data: formData,
+    				processData: false,
+    				contentType: false,
+    				success: function(result) {
+    					const src = '/bbs/file/download?file=' + result;
+    					$('#profileImg').attr({src});	// attr({src: src})
+    				}
+   				});
+    		});
     		$('#stateMsgBtn').click(function(e) {
     			$('#stateMsgInput').attr({'class': 'mt-2'});
     			$('#stateInput').attr({value: $('#stateMsg').text()});

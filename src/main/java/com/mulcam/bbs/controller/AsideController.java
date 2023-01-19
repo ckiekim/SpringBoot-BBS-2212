@@ -1,6 +1,7 @@
 package com.mulcam.bbs.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.List;
@@ -15,8 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mulcam.bbs.service.MapUtil;
 
@@ -26,6 +30,38 @@ public class AsideController {
 
 	@Autowired private MapUtil mapUtil;
 	@Value("${weatherKey}") private String weatherKey;
+	@Value("${spring.servlet.multipart.location}") private String uploadDir;
+	
+	@ResponseBody
+	@PostMapping("/profile")
+	public String profile(MultipartFile profile, HttpServletRequest req) throws Exception {
+//	public String profile(MultipartHttpServletRequest req) throws Exception {	// 이 코드도 가능
+//		MultipartFile profile = req.getFile("profile");
+		String fname = profile.getOriginalFilename();
+		File profileFile = new File(uploadDir + "/" + fname);
+		profile.transferTo(profileFile);
+		HttpSession session = req.getSession();
+		session.setAttribute("sessionProfile", fname);
+		return fname;
+	}
+	
+	@ResponseBody
+	@GetMapping("/stateMsg")
+	public String stateMsg(HttpServletRequest req) {
+		String msg = req.getParameter("stateMsg");
+		HttpSession session = req.getSession();
+		session.setAttribute("sessionStateMsg", msg);
+		return "0";
+	}
+	
+	@ResponseBody
+	@GetMapping("/address")
+	public String addressChange(HttpServletRequest req) {
+		String addr = req.getParameter("addr");
+		HttpSession session = req.getSession();
+		session.setAttribute("sessionAddress", addr);
+		return "0";
+	}
 	
 	@ResponseBody
 	@GetMapping("/weather")
@@ -64,23 +100,5 @@ public class AsideController {
 					+ desc + ", 온도: " + temp + "&#8451";
 		return html;
 	}
-	
-	@ResponseBody
-	@GetMapping("/stateMsg")
-	public String stateMsg(HttpServletRequest req) {
-		String msg = req.getParameter("stateMsg");
-		HttpSession session = req.getSession();
-		session.setAttribute("sessionStateMsg", msg);
-		return "0";
-	}
-	
-	@ResponseBody
-	@GetMapping("/address")
-	public String addressChange(HttpServletRequest req) {
-		String addr = req.getParameter("addr");
-		HttpSession session = req.getSession();
-		session.setAttribute("sessionAddress", addr);
-		return "0";
-	}
-	
+
 }
