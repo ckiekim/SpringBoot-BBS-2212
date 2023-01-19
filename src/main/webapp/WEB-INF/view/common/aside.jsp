@@ -2,7 +2,9 @@
 
 			<div class="col-sm-3">
                 <img src="/img/avatar_man.png" class="rounded-circle" alt="" width="90%"><br>
-                <span class="mt-3" id="stateMsg">${sessionStateMsg}</span>
+                <span class="mt-3" id="stateMsg">
+                	${empty sessionStateMsg ? '피할 수 없으면 즐겨라!!!' : sessionStateMsg}
+                </span>
                	<a href="#" id="stateMsgBtn"><span class="badge bg-secondary">수정</span></a>
                 <div id="stateMsgInput" class="mt-2 d-none">
                 	<input class="form-control form-control-sm" type="text" id="stateInput">
@@ -16,7 +18,14 @@
                     <img src="/img/twitter.png" height="16" class="me-2"><a href="#">twitter-id</a><br>
                     <img src="/img/homepage.png" height="16" class="me-2"><a href="#">www.homepage.co.kr</a><br>
                     <img src="/img/blog.png" height="16" class="me-2"><a href="#">blog.naver.com/blog-id</a><br>
-                    <img src="/img/addr.png" height="16" class="me-2"><span id="addr">서울시 광진구</span>
+                    <a href="#" id="addrChange"><img src="/img/addr.png" height="16" class="me-2"></a>
+                    	<span id="addr">
+                    		${empty sessionAddress ? '서울시 광진구' : sessionAddress}
+                    	</span>
+                    	<div id="addrInputDisp" class="mt-2 d-none">
+		                	<input class="form-control form-control-sm" type="text" id="addrInput">
+		                	<a href="#" id="addrSubmit"><span class="badge bg-primary">확인</span></a>
+		                </div>
                     	<a href="#" id="weather"><span class="badge bg-secondary">날씨</span></a><br>
                     <div id="weatherInfo"></div>
                 </div>

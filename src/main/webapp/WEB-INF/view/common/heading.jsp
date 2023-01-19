@@ -32,6 +32,22 @@
     			});
     		});
     		$('#weather').click(getWeatherInfo);
+    		$('#addrChange').click(function(e) {
+    			$('#addrInputDisp').attr({'class': 'mt-2'});
+    		});
+    		$('#addrSubmit').click(function(e) {
+    			$('#addrInputDisp').attr({'class': 'mt-2 d-none'});
+    			let addrInputVal = $('#addrInput').val();
+    			$.ajax({
+    				type: 'GET',
+    				url: '/aside/address',
+    				data: {addr: addrInputVal},
+    				success: function(e) {
+    					console.log('address:', addrInputVal);
+    					$('#addr').html(addrInputVal);
+    				}
+    			});
+    		});
     	});
     	function getWeatherInfo() {
     		$.ajax({

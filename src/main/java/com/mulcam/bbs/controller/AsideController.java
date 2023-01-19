@@ -47,6 +47,7 @@ public class AsideController {
 		while((line = br.readLine()) != null)
 			sb.append(line);
 		br.close();
+//		System.out.println(sb.toString());
 		
 		JSONParser parser = new JSONParser();
 		JSONObject object = (JSONObject) parser.parse(sb.toString());
@@ -70,6 +71,15 @@ public class AsideController {
 		String msg = req.getParameter("stateMsg");
 		HttpSession session = req.getSession();
 		session.setAttribute("sessionStateMsg", msg);
+		return "0";
+	}
+	
+	@ResponseBody
+	@GetMapping("/address")
+	public String addressChange(HttpServletRequest req) {
+		String addr = req.getParameter("addr");
+		HttpSession session = req.getSession();
+		session.setAttribute("sessionAddress", addr);
 		return "0";
 	}
 	
