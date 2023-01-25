@@ -40,6 +40,7 @@
 					    		</td>
 					    	</tr>
 					    </table>
+					    <br><br><br>
 	            	</div>
 	            	<div class="col-3"></div>
             	</div>

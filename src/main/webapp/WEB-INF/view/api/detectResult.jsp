@@ -25,6 +25,7 @@
 			    <canvas id="tcanvas" width="100" height="100"></canvas>
 			    <br><br>
 			    <button class="btn btn-primary" onclick="location.href='/api/detect'">재실행</button>
+            	<br><br><br>
             </div>
             <!-- =================== main =================== -->
             

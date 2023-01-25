@@ -21,6 +21,7 @@
     				<br><br>
     				<button class="btn btn-primary"
                             onclick="location.href='/api/hotPlaces'">재실행</button>
+                    <br><br><br>
 				</div>
             <!-- =================== main =================== -->
             

@@ -38,6 +38,7 @@
 		                        </td>
 		                    </tr>
 		                </table>
+		                <br><br><br>
 			        </div>
 			        <div class="col-1"></div>
 				</div>
