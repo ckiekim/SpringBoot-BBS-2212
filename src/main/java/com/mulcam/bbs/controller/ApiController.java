@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mulcam.bbs.service.ApiUtil;
+import com.mulcam.bbs.service.ImageUtil;
 import com.mulcam.bbs.service.MapUtil;
 import com.mulcam.bbs.service.TransUtil;
 
@@ -27,6 +28,7 @@ public class ApiController {
 	@Autowired private ApiUtil apiUtil;
 	@Autowired private MapUtil mapUtil;
 	@Autowired private TransUtil transUtil;
+	@Autowired private ImageUtil imageUtil;
 	@Value("${naver.accessId}") private String accessId;
 	@Value("${naver.secretKey}") private String secretKey;
 	@Value("${spring.servlet.multipart.location}") private String uploadDir;
@@ -74,6 +76,8 @@ public class ApiController {
 		File uploadFile = new File(detectFile_);
 		upload.transferTo(uploadFile);				// uploadDir에 파일 저장
 		String fileName = uploadFile.getName();
+		imageUtil.resizeImage(fileName, uploadDir);
+		
 		String jsonResult = apiUtil.getObjectDetectResult(fileName);
         model.addAttribute("fileName", fileName);
         model.addAttribute("jsonResult", jsonResult);
@@ -138,6 +142,8 @@ public class ApiController {
 		File uploadFile = new File(imageFile_);
 		upload.transferTo(uploadFile);
 		String fileName = uploadFile.getName();
+		imageUtil.resizeImage(fileName, uploadDir);
+		
 		String jsonResult = apiUtil.getPoseEstimationResult(uploadFile);
         model.addAttribute("fileName", fileName);
         model.addAttribute("jsonResult", jsonResult);

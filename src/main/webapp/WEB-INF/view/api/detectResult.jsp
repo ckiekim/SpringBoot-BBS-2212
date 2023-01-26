@@ -22,10 +22,14 @@
             <div class="col-sm-9">
 			    <h3><strong>객체 탐지 결과</strong> <small>(네이버 Object Detection API)</small></h3>
 			    <hr>
-			    <canvas id="tcanvas" width="100" height="100"></canvas>
-			    <br><br>
-			    <button class="btn btn-primary" onclick="location.href='/api/detect'">재실행</button>
-            	<br><br><br>
+			    <div class="d-flex justify-content-center">
+			    	<canvas id="tcanvas" width="100" height="100" />
+			    </div>
+			    <div class="d-flex justify-content-center mt-3">
+			    	<button class="btn btn-primary" 
+			    			onclick="location.href='/api/detect'">재실행</button>
+            	</div>
+            	<br><br>
             </div>
             <!-- =================== main =================== -->
             

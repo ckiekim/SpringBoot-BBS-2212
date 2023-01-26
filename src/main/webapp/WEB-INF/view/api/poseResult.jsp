@@ -22,10 +22,12 @@
             <div class="col-sm-9">
             	<h3><strong>Pose Estimation 결과</strong></h3>
             	<hr>
-                <canvas id="tcanvas" width="100" height="100"></canvas>
-			    <br><br>
+            	<div class="d-flex justify-content-center">
+                	<canvas id="tcanvas" width="100" height="100" />
+                </div>
+			    <br>
 			    <div class="row">
-			    	<div class="col-1"></div>
+			    	<div class="col-2"></div>
 			    	<div class="col-8">
 					    <table class="table table-sm">
 					        <tr><td>0</td><td>코</td><td>1</td><td>목</td><td>2</td><td>오른쪽 어깨</td></tr>
@@ -42,7 +44,7 @@
 					    </table>
 					    <br><br><br>
 	            	</div>
-	            	<div class="col-3"></div>
+	            	<div class="col-2"></div>
             	</div>
             </div>
             <!-- =================== main =================== -->

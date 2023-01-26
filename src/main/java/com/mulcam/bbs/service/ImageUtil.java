@@ -48,4 +48,28 @@ public class ImageUtil {
 		return newFname;
 	}
 	
+	public void resizeImage(String fname, String imgDir) throws Exception {
+		File file = new File(imgDir + "/" + fname);
+        BufferedImage buffer = ImageIO.read(file);
+        int width = buffer.getWidth();
+        int height = buffer.getHeight();
+        if (width <= 800)
+        	return;
+        
+        int idx = fname.lastIndexOf('.');
+        String format = fname.substring(idx+1);
+        int targetWidth = 800;
+        int targetHeight = height * targetWidth / width;
+        
+        BufferedImage dest = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = dest.createGraphics();
+        g.setComposite(AlphaComposite.Src);
+        g.drawImage(buffer, 0, 0, targetWidth, targetHeight, null);
+        g.dispose();
+
+        OutputStream os = new FileOutputStream(file);
+        ImageIO.write(dest, format, os);
+        os.close();
+	}
+	
 }
