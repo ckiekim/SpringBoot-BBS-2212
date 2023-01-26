@@ -42,7 +42,7 @@ public class AsideController {
 		File profileFile = new File(uploadDir + "/" + fname);
 		profile.transferTo(profileFile);
 		
-		String newFname = imageUtil.squareImage(fname, uploadDir);
+		String newFname = imageUtil.squareImage(fname);
 		HttpSession session = req.getSession();
 		session.setAttribute("sessionProfile", newFname);
 		return newFname;

@@ -76,7 +76,7 @@ public class ApiController {
 		File uploadFile = new File(detectFile_);
 		upload.transferTo(uploadFile);				// uploadDir에 파일 저장
 		String fileName = uploadFile.getName();
-		imageUtil.resizeImage(fileName, uploadDir);
+		imageUtil.resizeImage(fileName);
 		
 		String jsonResult = apiUtil.getObjectDetectResult(fileName);
         model.addAttribute("fileName", fileName);
@@ -142,7 +142,7 @@ public class ApiController {
 		File uploadFile = new File(imageFile_);
 		upload.transferTo(uploadFile);
 		String fileName = uploadFile.getName();
-		imageUtil.resizeImage(fileName, uploadDir);
+		imageUtil.resizeImage(fileName);
 		
 		String jsonResult = apiUtil.getPoseEstimationResult(uploadFile);
         model.addAttribute("fileName", fileName);

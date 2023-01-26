@@ -10,13 +10,16 @@ import java.time.LocalDateTime;
 
 import javax.imageio.ImageIO;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ImageUtil {
+	
+	@Value("${spring.servlet.multipart.location}") private String uploadDir;
 
-	public String squareImage(String fname, String imgDir) throws Exception {
-		File file = new File(imgDir + "/" + fname);
+	public String squareImage(String fname) throws Exception {
+		File file = new File(uploadDir + "/" + fname);
         BufferedImage buffer = ImageIO.read(file);
         int width = buffer.getWidth();
         int height = buffer.getHeight();
@@ -40,7 +43,7 @@ public class ImageUtil {
         g.drawImage(buffer, 0, 0, size, size, x, y, x + size, y + size, null);
         g.dispose();
         
-        File dstFile = new File(imgDir + "/" + newFname);
+        File dstFile = new File(uploadDir + "/" + newFname);
         OutputStream os = new FileOutputStream(dstFile);
         ImageIO.write(dest, format, os);
         os.close();
@@ -48,8 +51,8 @@ public class ImageUtil {
 		return newFname;
 	}
 	
-	public void resizeImage(String fname, String imgDir) throws Exception {
-		File file = new File(imgDir + "/" + fname);
+	public void resizeImage(String fname) throws Exception {
+		File file = new File(uploadDir + "/" + fname);
         BufferedImage buffer = ImageIO.read(file);
         int width = buffer.getWidth();
         int height = buffer.getHeight();
