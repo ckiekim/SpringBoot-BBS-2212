@@ -20,14 +20,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.mulcam.bbs.service.ImageUtil;
 import com.mulcam.bbs.service.MapUtil;
 
 @Controller
 @RequestMapping("/aside")
 public class AsideController {
 
+	@Autowired private ImageUtil imageUtil;
 	@Autowired private MapUtil mapUtil;
 	@Value("${weatherKey}") private String weatherKey;
 	@Value("${spring.servlet.multipart.location}") private String uploadDir;
@@ -40,9 +41,11 @@ public class AsideController {
 		String fname = profile.getOriginalFilename();
 		File profileFile = new File(uploadDir + "/" + fname);
 		profile.transferTo(profileFile);
+		
+		String newFname = imageUtil.squareImage(fname, uploadDir);
 		HttpSession session = req.getSession();
-		session.setAttribute("sessionProfile", fname);
-		return fname;
+		session.setAttribute("sessionProfile", newFname);
+		return newFname;
 	}
 	
 	@ResponseBody

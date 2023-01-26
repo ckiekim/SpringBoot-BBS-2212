@@ -10,31 +10,29 @@ import java.time.LocalDateTime;
 
 import javax.imageio.ImageIO;
 
-public class ImageUtil {
-	private static BufferedImage buffer;
+import org.springframework.stereotype.Service;
 
-	public static void main(String[] args) throws Exception {
-		String fname = "런지.png";
-		File file = new File("/Users/student/Pictures/" + fname);
-		buffer = ImageIO.read(file);
-		int width = buffer.getWidth();
-		int height = buffer.getHeight();
-		int size=width, x=0, y=0;
-		if (width > height) {
-			size = width;
-			x = (width - size) / 2;
-			y = 0;
-		} else if (width < height) {
-			size = height;
-			x = 0;
-			y = (height - size) / 2;
-		} else {
-			System.out.println("width = height = " + width);
-		}
-		String now = LocalDateTime.now().toString().substring(0,22).replaceAll("[-T:.]", "");
+@Service
+public class ImageUtil {
+
+	public String squareImage(String fname, String imgDir) throws Exception {
+		File file = new File(imgDir + "/" + fname);
+        BufferedImage buffer = ImageIO.read(file);
+        int width = buffer.getWidth();
+        int height = buffer.getHeight();
+        int size = width, x = 0, y = 0;
+        if (width > height) {
+            size = height;
+            x = (width - size) / 2;
+        } else if (width < height) {
+            size = width;
+            y = (height - size) / 2;
+        }
+        
+        String now = LocalDateTime.now().toString().substring(0,22).replaceAll("[-T:.]", "");
         int idx = fname.lastIndexOf('.');
         String format = fname.substring(idx+1);
-        fname = now + fname.substring(idx);	// 유니크한 파일 이름으로 변경
+        String newFname = now + fname.substring(idx);
         
         BufferedImage dest = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = dest.createGraphics();
@@ -42,10 +40,12 @@ public class ImageUtil {
         g.drawImage(buffer, 0, 0, size, size, x, y, x + size, y + size, null);
         g.dispose();
         
-        File dstFile = new File("/Users/student/Pictures/" + fname);
+        File dstFile = new File(imgDir + "/" + newFname);
         OutputStream os = new FileOutputStream(dstFile);
-        ImageIO.write(buffer, format, os);
+        ImageIO.write(dest, format, os);
         os.close();
+        
+		return newFname;
 	}
-
+	
 }
