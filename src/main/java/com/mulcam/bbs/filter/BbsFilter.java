@@ -35,6 +35,8 @@ public class BbsFilter extends HttpFilter implements Filter {
 			session.setAttribute("menu", "api");
 		else if (uri.contains("crawling"))
 			session.setAttribute("menu", "crawling");
+		else if (uri.contains("python"))
+			session.setAttribute("menu", "python");
 		else
 			session.setAttribute("menu", "");
 		
