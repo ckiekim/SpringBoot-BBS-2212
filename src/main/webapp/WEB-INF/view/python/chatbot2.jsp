@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -9,17 +8,36 @@
     	function send() {
     		let userInput = $('#userInput').val();
     		$('#userInput').html('');
-    		$('#container').attr({'class': 'container'})
+    		let mark = 'mark' + Math.floor(Math.random() * 100000);
     		$.ajax({
 				type: 'POST',
 				url: '/python/chatbot2',
 				data: {userInput: userInput},
-				/* success: function(result) {
+				success: function(result) {
 					let obj = JSON.parse(result);
-					$('#user').html(obj.user);
-					$('#chatbot').html(obj.chatbot);
-				} */
-				success: function(e) { }
+					$('<div></div>')
+							.attr({'class': 'd-flex flex-row mt-1', id: mark+'1'})
+							.appendTo('#container');
+						$('<div></div>')
+							.attr({'class': 'card w-75', id: mark+'2'}).appendTo('#'+mark+'1');
+						$('<div></div>')
+							.attr({'class': 'card-body', id: mark+'3'}).appendTo('#'+mark+'2');
+						$('<img></img>')
+							.attr({src: '/img/person.png', height: '32'}).appendTo('#'+mark+'3');
+						$('<span></span>')
+							.text(obj.user).appendTo('#'+mark+'3');
+					$('<div></div>')
+							.attr({'class': 'd-flex flex-row-reverse mt-1', id: mark+'6'})
+							.appendTo('#container');
+						$('<div></div>')
+							.attr({'class': 'card bg-light text-dark w-75', id: mark+'7'}).appendTo('#'+mark+'6');
+						$('<div></div>')
+							.attr({'class': 'card-body text-end', id: mark+'8'}).appendTo('#'+mark+'7');
+						$('<span></span>')
+							.text(obj.chatbot).appendTo('#'+mark+'8');
+						$('<img></img>')
+							.attr({src: '/img/ai.png', height: '32'}).appendTo('#'+mark+'8');
+				}
 			});
     	}
     </script>
@@ -44,27 +62,10 @@
 					</div>
 				</div>
 				<div class="d-flex justify-content-center">
-               		<div class="container d-none" id="container" style="width: 80%; height: 600px;">
-               		<c:forEach var="chat" items="${sessionChatBot}">
-               			<div class="d-flex flex-row mt-1">
-                            <div class="card bg-light text-dark w-75">
-                                <div class="card-body">
-									<img src="/img/ai.png" height="32">
-									<span id="chatbot">${chat.chatbot}</span>
-                                </div>
-                            </div>
-                        </div>
-               			<div class="d-flex flex-row-reverse mt-1">
-                            <div class="card w-75">
-                                <div class="card-body text-end">
-									<span id="user">${chat.user}</span>
-									<img src="/img/person.png" height="32">
-                                </div>
-                            </div>
-                        </div>
-               		</c:forEach>
+               		<div class="container overflow-auto" id="container" style="width: 80%; height: 600px;">
                		</div>
                	</div>
+            </div>
             <!-- =================== main =================== -->
             
         </div>

@@ -35,7 +35,7 @@ public class PythonController {
 	
 	@ResponseBody
 	@PostMapping("/chatbot2")
-	public String chatbot2Result(String userInput, HttpSession session) throws Exception {
+	public String chatbot2Result(String userInput) throws Exception {
 		userInput = URLEncoder.encode(userInput, "utf-8");
 		String apiUrl = "http://localhost:5000/chatbot?userInput=" + userInput;
 		
@@ -47,22 +47,6 @@ public class PythonController {
 		while((line = br.readLine()) != null)
 			sb.append(line);
 		br.close();
-		
-		List<ChatBot> sessionChat = (List<ChatBot>) session.getAttribute("sessionChatBot");
-		if (sessionChat == null)
-			sessionChat = new ArrayList<>();
-		
-		JSONParser parser = new JSONParser();
-		JSONObject object = (JSONObject) parser.parse(sb.toString());
-		String category = (String) object.get("category");
-		String user = (String) object.get("user");
-		String chatbot = (String) object.get("chatbot");
-		double similarity = (Double) object.get("similarity");
-		ChatBot chatBot = new ChatBot(category, user, chatbot, similarity);
-		System.out.println(chatBot);
-		sessionChat.add(chatBot);
-		session.setAttribute("sessionChatBot", sessionChat);
-		
 		
 		return sb.toString();
 	}

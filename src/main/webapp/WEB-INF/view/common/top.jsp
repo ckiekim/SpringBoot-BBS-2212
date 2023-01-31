@@ -36,9 +36,15 @@
 	                    <li><a class="dropdown-item" href="/crawling/fireStation">소방서</a></li>
 	                </ul>
 	            </li>
-	            <li class="nav-item ms-3">
-                    <a class="nav-link ${menu eq 'python' ? "active" : ''}" href="/python/chatbot"><i class="fa-solid fa-brain"></i> 챗봇</a>
-                </li>
+	            <li class="nav-item dropdown ms-3">
+	                <a class="nav-link dropdown-toggle ${menu eq 'python' ? "active" : ''}" href="#" data-bs-toggle="dropdown">
+	                    <i class="fa-solid fa-brain"></i> 인공지능
+	                </a>
+	                <ul class="dropdown-menu">
+	                    <li><a class="dropdown-item" href="/python/chatbot">Streamlit</a></li>
+	                    <li><a class="dropdown-item" href="/python/chatbot2">챗봇</a></li>
+	                </ul>
+	            </li>
                 <li class="nav-item ms-3">
                     <a class="nav-link" href="/bbs/user/logout"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>
                 </li>
