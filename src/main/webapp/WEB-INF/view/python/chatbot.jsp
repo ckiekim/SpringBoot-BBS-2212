@@ -14,10 +14,10 @@
             
             <!-- =================== main =================== -->
             <div class="col-sm-9">
-            	<h3><strong>심리상담 챗봇</strong></h3>
+            	<h3><strong>심리상담 챗봇</strong> (Streamlit)</h3>
             	<hr>
             	<div class="d-flex justify-content-center">
-                	<iframe src="http://localhost:8501/" border="1" style="width: 80%; height: 600px;"></iframe>
+                	<iframe src="http://${ipAddr}:8501/" border="1" style="width: 80%; height: 600px;"></iframe>
 				</div>
             <!-- =================== main =================== -->
             

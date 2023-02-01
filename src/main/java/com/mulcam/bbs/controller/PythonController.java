@@ -7,6 +7,7 @@ import java.net.URLEncoder;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,8 @@ public class PythonController {
 	@Value("${naver.IPaddr}") private String ipAddr;
 
 	@GetMapping("/chatbot")
-	public String chatbot() {
+	public String chatbot(Model model) {
+		model.addAttribute("ipAddr", ipAddr);
 		return "python/chatbot";
 	}
 	
