@@ -24,7 +24,7 @@
 	                    <li><a class="dropdown-item" href="/api/ocr">광학문자(OCR) 인식</a></li>
 	                    <li><a class="dropdown-item" href="/api/detect">객체 검출</a></li>
 	                    <li><a class="dropdown-item" href="/api/pose">Pose Estimation</a></li>
-	                    <li><a class="dropdown-item" href="/api/speechRecog">음성 인식</a></li>
+	                    <!-- <li><a class="dropdown-item" href="/api/speechRecog">음성 인식</a></li> -->
 	                </ul>
 	            </li>
 	            <li class="nav-item dropdown ms-3">

@@ -53,5 +53,15 @@
     "name": "naver.IPaddr",
     "type": "java.lang.String",
     "description": "A description for 'naver.IPaddr'"
+  },
+  {
+    "name": "naver.ocr.apiUrl",
+    "type": "java.lang.String",
+    "description": "A description for 'naver.ocr.apiUrl'"
+  },
+  {
+    "name": "naver.ocr.secretKey",
+    "type": "java.lang.String",
+    "description": "A description for 'naver.ocr.secretKey'"
   }
 ]}

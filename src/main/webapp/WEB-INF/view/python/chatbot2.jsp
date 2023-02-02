@@ -7,7 +7,7 @@
     <script>
     	function send() {
     		let userInput = $('#userInput').val();
-    		$('#userInput').html('');
+    		$('#userInput').val('');
     		let mark = 'mark' + Math.floor(Math.random() * 100000);
     		$.ajax({
 				type: 'POST',
