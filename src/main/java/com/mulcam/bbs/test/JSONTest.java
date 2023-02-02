@@ -17,8 +17,7 @@ public class JSONTest {
 		List<String> list = new ArrayList<>();
 		int count = 1;
 		for (Object field: fields) {
-			JSONObject jsonField = (JSONObject) field;
-			String text = jsonField.getString("inferText");
+			String text = ((JSONObject) field).getString("inferText");
 			list.add(text);
 			System.out.print(text + ", ");
 			if (count % 10 == 0)

@@ -1,4 +1,4 @@
-package com.mulcam.bbs.test;
+package com.mulcam.bbs.service;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -8,20 +8,21 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
-public class OCRTest {
+@Service
+public class OcrUtil {
 
-	public static void main(String[] args) throws Exception {
-		String apiURL = "https://ei72792oci.apigw.ntruss.com/custom/v1/20382/cdfc03af341c21e0171808b9398cd32e720127e2410ff211250f958135081153/general";
-		String secretKey = "bUlaS2pvdHlHSnJFYVhqdllXdmhwWnlybHBEd216WFU=";
-		String imageFile = "c:/Temp/영수증2.jpg";
-
+	@Value("${naver.ocr.apiUrl}") private String apiURL;
+	@Value("${naver.ocr.secretKey}") private String secretKey;
+	@Value("${spring.servlet.multipart.location}") private String uploadDir;
+	
+	public String getOcrResult(String fileName) throws Exception {
 		URL url = new URL(apiURL);
 		HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		conn.setUseCaches(false);
@@ -48,7 +49,7 @@ public class OCRTest {
 		conn.connect();
 		DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
 		long start = System.currentTimeMillis();
-		File file = new File(imageFile);
+		File file = new File(fileName);
 		writeMultiPart(wr, postParams, file, boundary);
 		wr.close();
 		
@@ -60,29 +61,16 @@ public class OCRTest {
 			br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
 		}
 		String inputLine;
-		StringBuffer response = new StringBuffer();
+		StringBuffer sb = new StringBuffer();
 		while ((inputLine = br.readLine()) != null) {
-			response.append(inputLine);
+			sb.append(inputLine);
 		}
 		br.close();
-
-		System.out.println(response);
-		json = new JSONObject(response.toString());
-		JSONObject result = (JSONObject) ((JSONArray) json.getJSONArray("images")).getJSONObject(0);
-		JSONArray fields = (JSONArray) result.getJSONArray("fields");
-		List<String> list = new ArrayList<>();
-		int count = 1;
-		for (Object field: fields) {
-			String text = ((JSONObject) field).getString("inferText");
-			list.add(text);
-			System.out.print(text + ", ");
-			if (count % 10 == 0)
-				System.out.println();
-			count++;
-		}
+		
+		return sb.toString();
 	}
-
-	private static void writeMultiPart(OutputStream out, String jsonMessage, File file, String boundary) throws Exception {
+	
+	private void writeMultiPart(OutputStream out, String jsonMessage, File file, String boundary) throws Exception {
 		StringBuilder sb = new StringBuilder();
 		String crlf = "\r\n";
 		sb.append("--").append(boundary).append(crlf);

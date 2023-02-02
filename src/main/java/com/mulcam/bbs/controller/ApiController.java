@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mulcam.bbs.service.ApiUtil;
 import com.mulcam.bbs.service.ImageUtil;
 import com.mulcam.bbs.service.MapUtil;
+import com.mulcam.bbs.service.OcrUtil;
 import com.mulcam.bbs.service.TransUtil;
 
 
@@ -29,6 +30,7 @@ public class ApiController {
 	@Autowired private MapUtil mapUtil;
 	@Autowired private TransUtil transUtil;
 	@Autowired private ImageUtil imageUtil;
+	@Autowired private OcrUtil ocrUtil;
 	@Value("${naver.accessId}") private String accessId;
 	@Value("${naver.secretKey}") private String secretKey;
 	@Value("${spring.servlet.multipart.location}") private String uploadDir;
@@ -161,6 +163,24 @@ public class ApiController {
 		model.addAttribute("content", content);
 		model.addAttribute("result", result);
 		return "api/sentimentResult";
+	}
+	
+	@GetMapping("/ocr")
+	public String ocrForm() {
+		return "api/ocrForm";
+	}
+	
+	@PostMapping("/ocr")
+	public String ocr(MultipartFile upload, Model model) throws Exception {
+		String ocrFile = uploadDir + "/ocr" + upload.getOriginalFilename();
+		File uploadFile = new File(ocrFile);
+		upload.transferTo(uploadFile);
+		
+		String jsonResult = ocrUtil.getOcrResult(ocrFile);
+		String fileName = uploadFile.getName();
+        model.addAttribute("fileName", fileName);
+        model.addAttribute("jsonResult", jsonResult);
+		return "api/ocrResult";
 	}
 	
 }

@@ -21,6 +21,7 @@
 	                    <li><a class="dropdown-item" href="/api/translate">번역</a></li>
 	                    <li><a class="dropdown-item" href="/api/sentiment">감성 분석</a></li>
 	                    <li><hr class="dropdown-divider"></hr></li>
+	                    <li><a class="dropdown-item" href="/api/ocr">광학문자(OCR) 인식</a></li>
 	                    <li><a class="dropdown-item" href="/api/detect">객체 검출</a></li>
 	                    <li><a class="dropdown-item" href="/api/pose">Pose Estimation</a></li>
 	                    <li><a class="dropdown-item" href="/api/speechRecog">음성 인식</a></li>
