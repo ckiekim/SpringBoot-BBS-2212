@@ -20,7 +20,7 @@
             
             <!-- =================== main =================== -->
             <div class="col-sm-9">
-			    <h3><strong>광학 문자 인식(OCR) 결과</strong></h3>
+			    <h3><strong>영수증 인식(OCR) 결과</strong></h3>
 			    <hr>
 			    <div class="row">
 			    	<div class="col-1"></div>
@@ -30,14 +30,26 @@
 			    		</div>
 			    	</div>
 			    	<div class="col-4">
+			    		<div class="mb-3">
+							<label for="shop" class="form-label">매장명:</label>
+							<input type="text" class="form-control" id="shop" name="shop" value="${rec.shop}">
+						</div>
+						<div class="mb-3">
+							<label for="buyDate" class="form-label">구매일자:</label>
+							<input type="date" class="form-control" id="buyDate" name="buyDate" value="${rec.buyDate}">
+						</div>
+						<div class="mb-5">
+							<label for="price" class="form-label">금액:</label>
+							<input type="text" class="form-control" id="price" name="price" value="${rec.price}">
+						</div>
 			    		<h4>인식된 텍스트</h4>
-			    		<p id="ocrText"></p>
+			    		<p id="ocrText" class="small"></p>
 			    	</div>
 			    	<div class="col-1"></div>
 			    </div>
 			    <div class="d-flex justify-content-center mt-3">
 			    	<button class="btn btn-primary" 
-			    			onclick="location.href='/api/ocr'">재실행</button>
+			    			onclick="location.href='/api/receipt'">재실행</button>
             	</div>
             	<br><br>
             </div>

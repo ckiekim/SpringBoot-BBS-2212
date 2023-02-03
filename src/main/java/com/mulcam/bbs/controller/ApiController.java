@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mulcam.bbs.entity.Receipt;
 import com.mulcam.bbs.service.ApiUtil;
 import com.mulcam.bbs.service.ImageUtil;
 import com.mulcam.bbs.service.MapUtil;
 import com.mulcam.bbs.service.OcrUtil;
 import com.mulcam.bbs.service.TransUtil;
-
 
 @Controller
 @RequestMapping("/api")
@@ -181,6 +181,26 @@ public class ApiController {
         model.addAttribute("fileName", fileName);
         model.addAttribute("jsonResult", jsonResult);
 		return "api/ocrResult";
+	}
+	
+	@GetMapping("/receipt")
+	public String receiptForm() {
+		return "api/receiptForm";
+	}
+	
+	@PostMapping("/receipt")
+	public String receipt(MultipartFile upload, Model model) throws Exception {
+		String ocrFile = uploadDir + "/ocr" + upload.getOriginalFilename();
+		File uploadFile = new File(ocrFile);
+		upload.transferTo(uploadFile);
+		
+		String jsonResult = ocrUtil.getOcrResult(ocrFile);
+		Receipt receipt = ocrUtil.getReceipt(jsonResult);
+		String fileName = uploadFile.getName();
+        model.addAttribute("fileName", fileName);
+        model.addAttribute("rec", receipt);
+        model.addAttribute("jsonResult", jsonResult);
+		return "api/receiptResult";
 	}
 	
 }
