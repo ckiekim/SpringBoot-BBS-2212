@@ -24,6 +24,7 @@ public class BbsFilter extends HttpFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		HttpSession session = httpRequest.getSession();
+		session.setMaxInactiveInterval(3600*10); 		// 10 hours
 		
 		String uri = httpRequest.getRequestURI();
 //		System.out.println("BbsFilter.uri:" + uri);
