@@ -24,9 +24,11 @@
                 <div class="d-flex justify-content-between">
                     <div>${today}</div>
                     <div>
-                        <i class="fa-solid fa-less-than"></i>
+                        <a href="/schedule/index/left2"><i class="fa-solid fa-angles-left"></i></a>
+                        <a href="/schedule/index/left"><i class="fa-solid fa-angle-left ms-2"></i></a>
                         <span class="badge bg-secondary mx-2">${year}.${month}</span>
-                        <i class="fa-solid fa-greater-than"></i>
+                        <a href="/schedule/index/right"><i class="fa-solid fa-angle-right me-2"></i></a>
+                        <a href="/schedule/index/right2"><i class="fa-solid fa-angles-right"></i></a>
                     </div>
                     <div><i class="fa-solid fa-pen me-3"></i><i class="fa-solid fa-table-list"></i></div>
                 </div>
@@ -36,47 +38,44 @@
                         <th>월</th><th>화</th><th>수</th><th>목</th><th>금</th>
                         <th class="text-primary">토</th>
                     </tr>
-                <c:forEach var="week" items="${calendar}">
+                <c:forEach var="week" items="${calendar}" varStatus="loop">
                     <tr>
-                        <td style="height: 120px;">
+                        <td style="height: ${numberOfWeeks eq 5 ? '120px' : '100px'};">
                             <div class="d-flex justify-content-between">
-                                <div class="text-danger">${week.get(0)}</div>
-                                <div><i class="fa-solid fa-bars"></i></div>
-                            </div>
-                        <td>
-                        	<div class="d-flex justify-content-between">
-                                <div>${week.get(1)}</div>
-                                <div><i class="fa-solid fa-bars"></i></div>
-                            </div>
-                        </td>
-                        <td>
-                        	<div class="d-flex justify-content-between">
-                                <div>${week.get(2)}</div>
-                                <div><i class="fa-solid fa-bars"></i></div>
+                            	<c:if test="${loop.first and week.get(0) gt 20}">
+                                	<div class="text-danger" style="opacity: 0.5;">${week.get(0)}</div>
+                            		<div style="opacity: 0.5;"><i class="fa-solid fa-bars"></i></div>
+                            	</c:if>
+                            	<c:if test="${not (loop.first and week.get(0) gt 20)}">
+                                	<div class="text-danger">${week.get(0)}</div>
+                                	<div><i class="fa-solid fa-bars"></i></div>
+                            	</c:if>
                             </div>
                         </td>
+                    <c:forTokens var="i" items="1,2,3,4,5" delims=",">
                         <td>
                         	<div class="d-flex justify-content-between">
-                                <div>${week.get(3)}</div>
-                                <div><i class="fa-solid fa-bars"></i></div>
+                        		<c:if test="${(loop.first and week.get(i) gt 20) or (loop.last and week.get(i) lt 7)}">
+                                	<div style="opacity: 0.5;">${week.get(i)}</div>
+                                	<div style="opacity: 0.5;"><i class="fa-solid fa-bars"></i></div>
+                                </c:if>
+                                <c:if test="${not ((loop.first and week.get(i) gt 20) or (loop.last and week.get(i) lt 7))}">
+                                	<div>${week.get(i)}</div>
+                                	<div><i class="fa-solid fa-bars"></i></div>
+                                </c:if>
                             </div>
                         </td>
-                        <td>
-                        	<div class="d-flex justify-content-between">
-                                <div>${week.get(4)}</div>
-                                <div><i class="fa-solid fa-bars"></i></div>
-                            </div>
-                        </td>
-                        <td>
-                        	<div class="d-flex justify-content-between">
-                                <div>${week.get(5)}</div>
-                                <div><i class="fa-solid fa-bars"></i></div>
-                            </div>
-                        </td>
+                    </c:forTokens>
                         <td>
 							<div class="d-flex justify-content-between">
-                                <div class="text-primary">${week.get(6)}</div>
-                                <div><i class="fa-solid fa-bars"></i></div>
+								<c:if test="${loop.last and week.get(6) lt 7}">
+                                	<div class="text-primary" style="opacity: 0.5;">${week.get(6)}</div>
+                                	<div style="opacity: 0.5;"><i class="fa-solid fa-bars"></i></div>
+                                </c:if>
+                                <c:if test="${not (loop.last and week.get(6) lt 7)}">
+                                	<div class="text-primary">${week.get(6)}</div>
+                                	<div><i class="fa-solid fa-bars"></i></div>
+                                </c:if>
                             </div>
 						</td>
                     </tr>
