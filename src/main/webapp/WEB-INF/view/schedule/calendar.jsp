@@ -23,11 +23,11 @@
                 <div class="d-flex justify-content-between">
                     <div>${today}</div>
                     <div>
-                        <a href="/schedule/index/left2"><i class="fa-solid fa-angles-left"></i></a>
-                        <a href="/schedule/index/left"><i class="fa-solid fa-angle-left ms-2"></i></a>
+                        <a href="/schedule/calendar/left2"><i class="fa-solid fa-angles-left"></i></a>
+                        <a href="/schedule/calendar/left"><i class="fa-solid fa-angle-left ms-2"></i></a>
                         <span class="badge bg-primary mx-2">${year}.${month}</span>
-                        <a href="/schedule/index/right"><i class="fa-solid fa-angle-right me-2"></i></a>
-                        <a href="/schedule/index/right2"><i class="fa-solid fa-angles-right"></i></a>
+                        <a href="/schedule/calendar/right"><i class="fa-solid fa-angle-right me-2"></i></a>
+                        <a href="/schedule/calendar/right2"><i class="fa-solid fa-angles-right"></i></a>
                     </div>
                     <div><i class="fa-solid fa-pen me-3"></i><i class="fa-solid fa-table-list"></i></div>
                 </div>

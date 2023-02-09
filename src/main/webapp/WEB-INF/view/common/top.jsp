@@ -48,6 +48,9 @@
 	                    <li><a class="dropdown-item" href="/python/chatbot2">챗봇</a></li>
 	                </ul>
 	            </li>
+	            <li class="nav-item ms-3">
+                    <a class="nav-link ${menu eq 'schedule' ? "active" : ''}" href="/schedule/calendar"><i class="fa-solid fa-calendar-days"></i> 스케쥴</a>
+                </li>
                 <li class="nav-item ms-3">
                     <a class="nav-link" href="/bbs/user/logout"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>
                 </li>
