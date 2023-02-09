@@ -26,7 +26,7 @@
                     <div>
                         <a href="/schedule/index/left2"><i class="fa-solid fa-angles-left"></i></a>
                         <a href="/schedule/index/left"><i class="fa-solid fa-angle-left ms-2"></i></a>
-                        <span class="badge bg-secondary mx-2">${year}.${month}</span>
+                        <span class="badge bg-primary mx-2">${year}.${month}</span>
                         <a href="/schedule/index/right"><i class="fa-solid fa-angle-right me-2"></i></a>
                         <a href="/schedule/index/right2"><i class="fa-solid fa-angles-right"></i></a>
                     </div>
@@ -40,7 +40,7 @@
                     </tr>
                 <c:forEach var="week" items="${calendar}" varStatus="loop">
                     <tr>
-                        <td style="height: ${numberOfWeeks eq 5 ? '120px' : '100px'};">
+                        <td style="height: ${numberOfWeeks eq 6 ? '100px' : '120px'};">
                             <div class="d-flex justify-content-between">
                             	<c:if test="${loop.first and week.get(0) gt 20}">
                                 	<div class="text-danger" style="opacity: 0.5;">${week.get(0)}</div>

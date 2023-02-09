@@ -24,7 +24,7 @@ public class ScheduleController {
 	@GetMapping(value = {"/index/{arrow}", "/index"})
 	public String index(@PathVariable(required = false) String arrow, HttpSession session, Model model) {
 		LocalDate today = LocalDate.now();
-		String date = "일 월 화 수 목 금 토".split(" ")[today.getDayOfWeek().getValue()];
+		String date = "일 월 화 수 목 금 토".split(" ")[today.getDayOfWeek().getValue() % 7];
 		int[] monthLength = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; 
 		int year = 2000, month = 1;
 		String sessionMonthYear = (String) session.getAttribute("scheduleMonthYear");

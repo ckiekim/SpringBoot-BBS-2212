@@ -1,5 +1,16 @@
 package com.mulcam.bbs.entity;
-
+/*
+	CREATE TABLE diary (
+	  uid VARCHAR(20) NOT NULL,
+	  dayStr CHAR(8) NOT NULL,
+	  anniversary VARCHAR(20),
+	  title VARCHAR(80),
+	  content VARCHAR(1000),
+	  sentiment VARCHAR(20),
+	  isHoliday INT DEFAULT 0,
+	  PRIMARY KEY(uid, dayStr)
+	);
+ */
 public class Diary {
 	private String uid;
 	private String dayStr;
