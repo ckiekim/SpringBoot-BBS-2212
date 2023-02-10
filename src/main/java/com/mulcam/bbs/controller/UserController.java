@@ -38,7 +38,8 @@ public class UserController {
 		switch(result) {
 		case UserService.CORRECT_LOGIN:
 			model.addAttribute("msg", session.getAttribute("uname") + "님 환영합니다.");
-			model.addAttribute("url", "/bbs/board/list?p=1&f=&q=");
+//			model.addAttribute("url", "/bbs/board/list?p=1&f=&q=");
+			model.addAttribute("url", "/schedule/calendar");
 			break;
 		case UserService.WRONG_PASSWORD:
 			model.addAttribute("msg", "잘못된 패스워드 입니다. 다시 입력하세요.");

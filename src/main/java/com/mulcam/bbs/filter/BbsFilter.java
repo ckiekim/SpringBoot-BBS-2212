@@ -44,7 +44,7 @@ public class BbsFilter extends HttpFilter implements Filter {
 			session.setAttribute("menu", "");
 		
 		String[] urlPatterns = {"/board", "/user/list", "/user/update", "/user/delete",
-								"/api", "/crawling", "/python"};
+								"/api", "/crawling", "/python", "/schedule"};
 		for (String routing: urlPatterns) {
 			if (uri.contains(routing)) {
 				String uid = (String) session.getAttribute("uid");

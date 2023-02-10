@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<c:set var="height" value="${600 / numberOfWeeks}"></c:set>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -37,46 +39,30 @@
                         <th>월</th><th>화</th><th>수</th><th>목</th><th>금</th>
                         <th class="text-primary">토</th>
                     </tr>
-                <c:forEach var="week" items="${calendar}" varStatus="loop">
+                <c:forEach var="week" items="${calendar}">
                     <tr>
-                        <td style="height: ${600 / numberOfWeeks}px;">
+                    <c:forEach var="day" items="${week}">
+                        <td style="height: ${height}px;">
                             <div class="d-flex justify-content-between">
-                           	<c:if test="${loop.first and week.get(0) gt 20}">
-                               	<div class="text-danger" style="opacity: 0.5;">${week.get(0)}</div>
+                           	<c:if test="${day.isOtherMonth eq 1}">
+                               	<div class="${(day.date eq 0 or day.isHoliday eq 1) ? 'text-danger' : day.date eq 6 ? 'text-primary' : ''}" style="opacity: 0.5;">${day.day}</div>
                            		<div style="opacity: 0.5;"><i class="fa-solid fa-bars"></i></div>
                            	</c:if>
-                           	<c:if test="${not (loop.first and week.get(0) gt 20)}">
-                               	<div class="text-danger">${week.get(0)}</div>
+                           	<c:if test="${day.isOtherMonth eq 0}">
+                               	<div class="${(day.date eq 0 or day.isHoliday eq 1) ? 'text-danger' : day.date eq 6 ? 'text-primary' : ''}">${day.day}</div>
                                	<div><i class="fa-solid fa-bars"></i></div>
                            	</c:if>
                             </div>
+                        <c:forEach var="name" items="${day.annivList}" varStatus="loop">
+                        	<div class="${loop.first ? 'mt-1' : ''}" style="font-size: 14px;">${name}</div>
+                        </c:forEach>
+                        <c:forEach var="sched" items="${day.schedList}" varStatus="loop">
+                        	<div class="${loop.first ? 'mt-1' : ''}" style="font-size: 12px;">
+                        	${fn:substring(sched.startTime, 11, 16)}
+                        	${sched.title}</div>
+                        </c:forEach>
                         </td>
-                    <c:forTokens var="i" items="1,2,3,4,5" delims=",">
-                        <td>
-                        	<div class="d-flex justify-content-between">
-                       		<c:if test="${(loop.first and week.get(i) gt 20) or (loop.last and week.get(i) lt 7)}">
-                               	<div style="opacity: 0.5;">${week.get(i)}</div>
-                               	<div style="opacity: 0.5;"><i class="fa-solid fa-bars"></i></div>
-                            </c:if>
-                            <c:if test="${not ((loop.first and week.get(i) gt 20) or (loop.last and week.get(i) lt 7))}">
-                               	<div>${week.get(i)}</div>
-                               	<div><i class="fa-solid fa-bars"></i></div>
-                               </c:if>
-                            </div>
-                        </td>
-                    </c:forTokens>
-                        <td>
-							<div class="d-flex justify-content-between">
-							<c:if test="${loop.last and week.get(6) lt 7}">
-                               	<div class="text-primary" style="opacity: 0.5;">${week.get(6)}</div>
-                               	<div style="opacity: 0.5;"><i class="fa-solid fa-bars"></i></div>
-                            </c:if>
-                            <c:if test="${not (loop.last and week.get(6) lt 7)}">
-                               	<div class="text-primary">${week.get(6)}</div>
-                               	<div><i class="fa-solid fa-bars"></i></div>
-                               </c:if>
-                            </div>
-						</td>
+                    </c:forEach>
                     </tr>
                 </c:forEach>
                 </table>

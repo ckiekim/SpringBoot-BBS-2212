@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 	CREATE TABLE SCHEDULE (
 		sid INT PRIMARY KEY AUTO_INCREMENT,
 		uid VARCHAR(20) NOT NULL,
-		sdate DATE NOT NULL,
+		sdate CHAR(8) NOT NULL,
 		title VARCHAR(40) NOT NULL,
 		place VARCHAR(40),
 		startTime DATETIME,
@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class Schedule {
 	private int sid;
 	private String uid;
-	private LocalDate sdate;
+	private String sdate;
 	private String title;
 	private String place;
 	private LocalDateTime startTime;
@@ -27,7 +27,7 @@ public class Schedule {
 	private int isImportant;
 	
 	public Schedule() { }
-	public Schedule(int sid, String uid, LocalDate sdate, String title, String place, LocalDateTime startTime,
+	public Schedule(int sid, String uid, String sdate, String title, String place, LocalDateTime startTime,
 			LocalDateTime endTime, int isImportant) {
 		this.sid = sid;
 		this.uid = uid;
@@ -57,10 +57,10 @@ public class Schedule {
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
-	public LocalDate getSdate() {
+	public String getSdate() {
 		return sdate;
 	}
-	public void setSdate(LocalDate sdate) {
+	public void setSdate(String sdate) {
 		this.sdate = sdate;
 	}
 	public String getTitle() {
