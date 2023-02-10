@@ -10,6 +10,22 @@
     <style>
         th { text-align: center; width: 14.28%;}
     </style>
+    <script>
+    	var schedClicked = false;
+    	function cellClick(date) {
+    		if (schedClicked)
+    			schedClicked = false;
+    		else {
+    			//const dateForm = date.substring(0,4)+'-'+date.substring(4,6)+'-'+date.substring(6,8);
+    			$('#selectedDate').val(date);
+    			$('#addModal').modal('show');
+    		}
+    	}
+    	function schedClick(sid) {
+    		schedClicked = true;
+    		console.log(sid);
+    	}
+    </script>
 </head>
 <body>
 	<%@ include file="../common/top.jsp" %>
@@ -42,24 +58,30 @@
                 <c:forEach var="week" items="${calendar}">
                     <tr>
                     <c:forEach var="day" items="${week}">
-                        <td style="height: ${height}px;">
+                        <td style="height: ${height}px;" onclick="cellClick(${day.sdate})">
                             <div class="d-flex justify-content-between">
                            	<c:if test="${day.isOtherMonth eq 1}">
-                               	<div class="${(day.date eq 0 or day.isHoliday eq 1) ? 'text-danger' : day.date eq 6 ? 'text-primary' : ''}" style="opacity: 0.5;">${day.day}</div>
-                           		<div style="opacity: 0.5;"><i class="fa-solid fa-bars"></i></div>
+                               	<div class="${(day.date eq 0 or day.isHoliday eq 1) ? 'text-danger' : day.date eq 6 ? 'text-primary' : ''}" style="opacity: 0.5;"><strong>${day.day}</strong></div>
+	                        	<div style="opacity: 0.5;">
+		                        <c:forEach var="name" items="${day.annivList}" varStatus="loop">
+		                        	${loop.first ? '' : '&middot;'} ${name}
+	                        	</c:forEach>
+	                        	</div>
                            	</c:if>
                            	<c:if test="${day.isOtherMonth eq 0}">
-                               	<div class="${(day.date eq 0 or day.isHoliday eq 1) ? 'text-danger' : day.date eq 6 ? 'text-primary' : ''}">${day.day}</div>
-                               	<div><i class="fa-solid fa-bars"></i></div>
+                               	<div class="${(day.date eq 0 or day.isHoliday eq 1) ? 'text-danger' : day.date eq 6 ? 'text-primary' : ''}"><strong>${day.day}</strong></div>
+                               	<div>
+		                        <c:forEach var="name" items="${day.annivList}" varStatus="loop">
+		                        	${loop.first ? '' : '&middot;'} ${name}
+	                        	</c:forEach>
+	                        	</div>
                            	</c:if>
                             </div>
-                        <c:forEach var="name" items="${day.annivList}" varStatus="loop">
-                        	<div class="${loop.first ? 'mt-1' : ''}" style="font-size: 14px;">${name}</div>
-                        </c:forEach>
                         <c:forEach var="sched" items="${day.schedList}" varStatus="loop">
-                        	<div class="${loop.first ? 'mt-1' : ''}" style="font-size: 12px;">
-                        	${fn:substring(sched.startTime, 11, 16)}
-                        	${sched.title}</div>
+                        	<div class="${loop.first ? 'mt-1' : ''}" style="font-size: 12px;" onclick="schedClick(${sched.sid})">
+	                        	${fn:substring(sched.startTime, 11, 16)}
+	                        	${sched.title}
+                        	</div>
                         </c:forEach>
                         </td>
                     </c:forEach>
@@ -73,5 +95,29 @@
     </div>
 
     <%@ include file="../common/bottom.jsp" %>
+    
+	<div class="modal" id="addModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">일정 추가</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+			
+				<!-- Modal body -->
+				<div class="modal-body">
+					<input type="text" id="selectedDate">
+					Modal body..
+				</div>
+			
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+				</div>
+			
+			</div>
+		</div>
+	</div>
 </body>
 </html>
