@@ -54,4 +54,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return schDay;
 	}
 
+	@Override
+	public void insert(Schedule schedule) {
+		schedDao.insert(schedule);
+	}
+
 }

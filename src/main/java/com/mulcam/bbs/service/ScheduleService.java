@@ -15,4 +15,6 @@ public interface ScheduleService {
 	
 	SchDay generateSchDay(String uid, String sdate, int date, int isOtherMonth);
 	
+	void insert(Schedule schedule);
+	
 }

@@ -143,7 +143,7 @@ public class ScheduleController {
 		String sdate = startDate.replace("-", "");
 		String uid = (String) session.getAttribute("uid");
 		Schedule schedule = new Schedule(uid, sdate, title, place, startDateTime, endDateTime, isImportant);
-		System.out.println(schedule);
+		schedService.insert(schedule);
 		return "redirect:/schedule/calendar";
 	}
 	
