@@ -16,8 +16,22 @@
     		if (schedClicked)
     			schedClicked = false;
     		else {
-    			//const dateForm = date.substring(0,4)+'-'+date.substring(4,6)+'-'+date.substring(6,8);
-    			$('#selectedDate').val(date);
+    			date = date + '';		// number type을 문자열로 변환
+    			const dateForm = date.substring(0,4)+'-'+date.substring(4,6)+'-'+date.substring(6,8);
+    			let t = new Date();
+    			let hour = t.getHours();
+    			let minute = t.getMinutes();
+    			if (minute < 30)
+    				minute = 30;
+    			else {
+    				minute = 0; hour = (hour + 1) % 24;
+    			}
+    			const startStr = ((hour >= 10) ? ''+hour : '0'+hour) + ':' + ((minute == 0) ? '00' : '30');
+    			const endStr = ((hour >= 9) ? ''+(hour+1) : '0'+(hour+1)) + ':' + ((minute == 0) ? '00' : '30');
+    			$('#startDate').val(dateForm);
+    			$('#startTime').val(startStr);
+    			$('#endDate').val(dateForm);
+    			$('#endTime').val(endStr);
     			$('#addModal').modal('show');
     		}
     	}
@@ -107,15 +121,64 @@
 			
 				<!-- Modal body -->
 				<div class="modal-body">
-					<input type="text" id="selectedDate">
-					Modal body..
+					<form action="/schedule/insert" method="post">
+						<table class="table table-borderless">
+	                        <tr>
+	                            <td colspan="2">
+	                                <label for="title">제목</label>
+	                                <input class="ms-5 me-2" type="checkbox" name="importance">중요
+	                                <input class="form-control" type="text" id="title" name="title">
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td>
+	                                <label for="startDate">시작일</label>
+	                                <input class="form-control" type="date" id="startDate" name="startDate">
+	                            </td>
+	                            <td>
+	                                <label for="startTime">시작시간</label>
+	                                <select class="form-control" name="startTime" id="startTime">
+	                                <c:forEach var="tl" items="${timeList}">
+	                                    <option value="${tl}" >${tl}</option>
+	                                </c:forEach>
+	                                </select>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td>
+	                                <label for="endDate">종료일</label>
+	                                <input class="form-control" type="date" id="endDate" name="endDate">
+	                            </td>
+	                            <td>
+	                                <label for="endTime">종료시간</label>
+	                                <select class="form-control" name="endTime" id="endTime">
+	                                <c:forEach var="tl" items="${timeList}">
+	                                    <option value="${tl}" >${tl}</option>
+	                                </c:forEach>
+	                                </select>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td colspan="2">
+	                                <label for="place">장소</label>
+	                                <input class="form-control" type="text" id="place" name="place">
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td colspan="2">
+	                                <label for="memo">메모</label>
+	                                <input class="form-control" type="text" id="memo" name="memo">
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td colspan="2" style="text-align: right;">
+	                                <button class="btn btn-primary me-2" type="submit">제출</button>
+	                                <button class="btn btn-secondary" type="reset">취소</button>
+	                            </td>
+	                        </tr>
+	                    </table>
+					</form>
 				</div>
-			
-				<!-- Modal footer -->
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-				</div>
-			
 			</div>
 		</div>
 	</div>
