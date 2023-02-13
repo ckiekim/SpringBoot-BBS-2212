@@ -59,4 +59,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 		schedDao.insert(schedule);
 	}
 
+	@Override
+	public Schedule getSchedule(int sid) {
+		Schedule sched = schedDao.getSchedule(sid);
+		return sched;
+	}
+
 }

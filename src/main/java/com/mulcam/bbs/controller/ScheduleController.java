@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mulcam.bbs.entity.SchDay;
 import com.mulcam.bbs.entity.Schedule;
@@ -145,6 +147,22 @@ public class ScheduleController {
 		Schedule schedule = new Schedule(uid, sdate, title, place, startDateTime, endDateTime, isImportant);
 		schedService.insert(schedule);
 		return "redirect:/schedule/calendar";
+	}
+	
+	// Ajax로 detail data 받음
+	@ResponseBody
+	@GetMapping("/detail/{sid}")
+	public String detail(@PathVariable int sid) {
+		Schedule sched = schedService.getSchedule(sid);
+		JSONObject jSched = new JSONObject();
+		jSched.put("sid", sid);
+		jSched.put("title", sched.getTitle());
+		jSched.put("place", sched.getPlace());
+		jSched.put("startTime", sched.getStartTime().toString());
+		jSched.put("endTime", sched.getEndTime().toString());
+		jSched.put("isImportant", sched.getIsImportant());
+//		System.out.println(jSched.toString());
+		return jSched.toString();
 	}
 	
 }

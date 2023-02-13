@@ -38,6 +38,21 @@
     	function schedClick(sid) {
     		schedClicked = true;
     		console.log(sid);
+    		$.ajax({
+    			type: 'GET',
+				url: '/schedule/detail/' + sid,
+				success: function(jsonSched) {
+					let sched = JSON.parse(jsonSched);
+					console.log(sched);
+					$('#title2').val(sched.title)
+					$('#startDate2').val(sched.startTime.substring(0,10));
+	    			$('#startTime2').val(sched.startTime.substring(11,16));
+	    			$('#endDate2').val(sched.endTime.substring(0,10));
+	    			$('#endTime2').val(sched.endTime.substring(11,16));
+	    			$('#place2').val(sched.place);
+	    			$('#updateModal').modal('show');
+				}
+    		});
     	}
     </script>
 </head>
@@ -168,6 +183,79 @@
 	                            <td colspan="2">
 	                                <label for="memo">메모</label>
 	                                <input class="form-control" type="text" id="memo" name="memo">
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td colspan="2" style="text-align: right;">
+	                                <button class="btn btn-primary me-2" type="submit">제출</button>
+	                                <button class="btn btn-secondary" type="reset">취소</button>
+	                            </td>
+	                        </tr>
+	                    </table>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal" id="updateModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">일정 조회 및 수정</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+			
+				<!-- Modal body -->
+				<div class="modal-body">
+					<form action="/schedule/update" method="post">
+						<table class="table table-borderless">
+	                        <tr>
+	                            <td colspan="2">
+	                                <label for="title2">제목</label>
+	                                <input class="ms-5 me-2" type="checkbox" id="importance2" name="importance">중요
+	                                <input class="form-control" type="text" id="title2" name="title">
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td>
+	                                <label for="startDate2">시작일</label>
+	                                <input class="form-control" type="date" id="startDate2" name="startDate">
+	                            </td>
+	                            <td>
+	                                <label for="startTime2">시작시간</label>
+	                                <select class="form-control" name="startTime2" id="startTime">
+	                                <c:forEach var="tl" items="${timeList}">
+	                                    <option value="${tl}" >${tl}</option>
+	                                </c:forEach>
+	                                </select>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td>
+	                                <label for="endDate2">종료일</label>
+	                                <input class="form-control" type="date" id="endDate2" name="endDate">
+	                            </td>
+	                            <td>
+	                                <label for="endTime2">종료시간</label>
+	                                <select class="form-control" name="endTime2" id="endTime">
+	                                <c:forEach var="tl" items="${timeList}">
+	                                    <option value="${tl}" >${tl}</option>
+	                                </c:forEach>
+	                                </select>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td colspan="2">
+	                                <label for="place2">장소</label>
+	                                <input class="form-control" type="text" id="place2" name="place">
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td colspan="2">
+	                                <label for="memo2">메모</label>
+	                                <input class="form-control" type="text" id="memo2" name="memo">
 	                            </td>
 	                        </tr>
 	                        <tr>

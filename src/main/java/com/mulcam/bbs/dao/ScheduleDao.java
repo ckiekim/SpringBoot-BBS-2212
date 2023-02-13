@@ -21,4 +21,7 @@ public interface ScheduleDao {
 			+ " #{startTime}, #{endTime}, #{isImportant})")
 	void insert(Schedule sched);
 	
+	@Select("select * from schedule where sid=#{sid}")
+	Schedule getSchedule(int sid);
+	
 }

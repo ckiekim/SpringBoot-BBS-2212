@@ -17,4 +17,6 @@ public interface ScheduleService {
 	
 	void insert(Schedule schedule);
 	
+	Schedule getSchedule(int sid);
+	
 }
