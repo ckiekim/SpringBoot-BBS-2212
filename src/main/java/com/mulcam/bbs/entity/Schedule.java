@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 		place VARCHAR(40),
 		startTime DATETIME,
 		endTime DATETIME,
-		isImportant INT DEFAULT 0
+		isImportant INT DEFAULT 0,
+		memo VARCHAR(100)
 	);
  */
 
@@ -25,10 +26,11 @@ public class Schedule {
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
 	private int isImportant;
+	private String memo;
 	
 	public Schedule() { }
 	public Schedule(String uid, String sdate, String title, String place, LocalDateTime startTime,
-			LocalDateTime endTime, int isImportant) {
+			LocalDateTime endTime, int isImportant, String memo) {
 		this.uid = uid;
 		this.sdate = sdate;
 		this.title = title;
@@ -36,9 +38,10 @@ public class Schedule {
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.isImportant = isImportant;
+		this.memo = memo;
 	}
 	public Schedule(int sid, String uid, String sdate, String title, String place, LocalDateTime startTime,
-			LocalDateTime endTime, int isImportant) {
+			LocalDateTime endTime, int isImportant, String memo) {
 		this.sid = sid;
 		this.uid = uid;
 		this.sdate = sdate;
@@ -47,12 +50,14 @@ public class Schedule {
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.isImportant = isImportant;
+		this.memo = memo;
 	}
 	
 	@Override
 	public String toString() {
 		return "Schedule [sid=" + sid + ", uid=" + uid + ", sdate=" + sdate + ", title=" + title + ", place=" + place
-				+ ", startTime=" + startTime + ", endTime=" + endTime + ", isImportant=" + isImportant + "]";
+				+ ", startTime=" + startTime + ", endTime=" + endTime + ", isImportant=" + isImportant + ", memo="
+				+ memo + "]";
 	}
 	
 	public int getSid() {
@@ -102,5 +107,11 @@ public class Schedule {
 	}
 	public void setIsImportant(int isImportant) {
 		this.isImportant = isImportant;
+	}
+	public String getMemo() {
+		return memo;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
 	}
 }

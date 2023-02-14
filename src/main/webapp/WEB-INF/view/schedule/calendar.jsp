@@ -51,6 +51,7 @@
 	    			$('#endDate2').val(sched.endTime.substring(0,10));
 	    			$('#endTime2').val(sched.endTime.substring(11,16));
 	    			$('#place2').val(sched.place);
+	    			$('#memo2').val(sched.memo);
 	    			$('#updateModal').modal('show');
 				}
     		});

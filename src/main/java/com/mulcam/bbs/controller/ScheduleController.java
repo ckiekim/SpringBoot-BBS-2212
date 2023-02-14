@@ -148,7 +148,7 @@ public class ScheduleController {
 		String memo = req.getParameter("memo");
 		String sdate = startDate.replace("-", "");
 		String uid = (String) session.getAttribute("uid");
-		Schedule schedule = new Schedule(uid, sdate, title, place, startDateTime, endDateTime, isImportant);
+		Schedule schedule = new Schedule(uid, sdate, title, place, startDateTime, endDateTime, isImportant, memo);
 		schedService.insert(schedule);
 		return "redirect:/schedule/calendar";
 	}
@@ -165,6 +165,7 @@ public class ScheduleController {
 		jSched.put("startTime", sched.getStartTime().toString());
 		jSched.put("endTime", sched.getEndTime().toString());
 		jSched.put("isImportant", sched.getIsImportant());
+		jSched.put("memo", sched.getMemo());
 //		System.out.println(jSched.toString());
 		return jSched.toString();
 	}
@@ -185,7 +186,7 @@ public class ScheduleController {
 		String memo = req.getParameter("memo");
 		String sdate = startDate.replace("-", "");
 		String uid = (String) session.getAttribute("uid");
-		Schedule schedule = new Schedule(sid, uid, sdate, title, place, startDateTime, endDateTime, isImportant);
+		Schedule schedule = new Schedule(sid, uid, sdate, title, place, startDateTime, endDateTime, isImportant, memo);
 		schedService.update(schedule);
 		return "redirect:/schedule/calendar";
 	}

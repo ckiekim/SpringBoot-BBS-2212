@@ -65,7 +65,7 @@
                         <td class="col-1">${fn:substring(sched.endTime, 11, 16)}</td>
                         <td class="col-2">${sched.title}</td>
                         <td class="col-2">${sched.place}</td>
-                        <td class="col-3"> </td>
+                        <td class="col-3">${sched.memo}</td>
                     </tr>
                 </c:forEach>
                 </table>

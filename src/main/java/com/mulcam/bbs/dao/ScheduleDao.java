@@ -20,14 +20,14 @@ public interface ScheduleDao {
 	
 	@Insert("INSERT INTO schedule VALUES"
 			+ " (DEFAULT, #{uid}, #{sdate}, #{title}, #{place},"
-			+ " #{startTime}, #{endTime}, #{isImportant})")
+			+ " #{startTime}, #{endTime}, #{isImportant}, #{memo})")
 	void insert(Schedule schedule);
 	
 	@Select("select * from schedule where sid=#{sid}")
 	Schedule getSchedule(int sid);
 	
 	@Update("update schedule set uid=#{uid}, sdate=#{sdate}, title=#{title}, place=#{place},"
-			+ "  startTime=#{startTime}, endTime=#{endTime}, isImportant=#{isImportant}"
+			+ "  startTime=#{startTime}, endTime=#{endTime}, isImportant=#{isImportant}, memo=#{memo}"
 			+ "  where sid=#{sid}")
 	void update(Schedule schedule);
 	
