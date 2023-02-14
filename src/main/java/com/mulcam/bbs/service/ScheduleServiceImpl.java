@@ -65,4 +65,14 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return sched;
 	}
 
+	@Override
+	public void update(Schedule schedule) {
+		schedDao.update(schedule);
+	}
+
+	@Override
+	public void delete(int sid) {
+		schedDao.delete(sid);
+	}
+
 }

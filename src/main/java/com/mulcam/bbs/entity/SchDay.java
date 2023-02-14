@@ -7,7 +7,7 @@ public class SchDay {
 	private int date;	// 요일 (0-일요일, ..., 6-토요일)
 	private int isHoliday;
 	private int isOtherMonth;
-	private String sdate;
+	private String sdate;		// 20230214
 	private List<String> annivList;
 	private List<Schedule> schedList;
 	

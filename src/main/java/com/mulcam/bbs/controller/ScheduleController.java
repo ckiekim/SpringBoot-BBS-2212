@@ -85,6 +85,7 @@ public class ScheduleController {
 		
 		// 아래에서 k는 날짜, i는 요일을 가리킴
 		String sdate = null;
+		// 첫번째 주
 		if (startDate != 0) {
 			LocalDate prevSunDay = startDay.minusDays(startDate);
 			int prevDay = prevSunDay.getDayOfMonth();
@@ -101,6 +102,7 @@ public class ScheduleController {
 		}
 		calendar.add(week);
 		
+		// 둘째 주부터 해당월의 마지막까지
 		int day = 8 - startDate;
 		for (int k=day, i=0; k<=monthLength[month-1]; k++, i++) {
 			if (i % 7 == 0)
@@ -110,6 +112,7 @@ public class ScheduleController {
 			if (i % 7 == 6)
 				calendar.add(week);
 		}
+		// 마지막 주 다음달 내용
 		if (lastDate != 6) {
 			LocalDate nextDay = lastDay.plusDays(1);
 			int nextYear = nextDay.getYear();
@@ -163,6 +166,33 @@ public class ScheduleController {
 		jSched.put("isImportant", sched.getIsImportant());
 //		System.out.println(jSched.toString());
 		return jSched.toString();
+	}
+	
+	@PostMapping("/update")
+	public String update(HttpServletRequest req, HttpSession session) {
+		System.out.println("/schedule/update");
+		int isImportant = (req.getParameter("importance") == null) ? 0 : 1;
+		int sid = Integer.parseInt(req.getParameter("sid"));
+		String title = req.getParameter("title");
+		String startDate = req.getParameter("startDate");
+		String startTime = req.getParameter("startTime");
+		LocalDateTime startDateTime = LocalDateTime.parse(startDate + "T" + startTime + ":00");
+		String endDate = req.getParameter("endDate");
+		String endTime = req.getParameter("endTime");
+		LocalDateTime endDateTime = LocalDateTime.parse(endDate + "T" + endTime + ":00");
+		String place = req.getParameter("place");
+		String memo = req.getParameter("memo");
+		String sdate = startDate.replace("-", "");
+		String uid = (String) session.getAttribute("uid");
+		Schedule schedule = new Schedule(sid, uid, sdate, title, place, startDateTime, endDateTime, isImportant);
+		schedService.update(schedule);
+		return "redirect:/schedule/calendar";
+	}
+	
+	@GetMapping("/delete/{sid}")
+	public String delete(@PathVariable int sid) {
+		schedService.delete(sid);
+		return "redirect:/schedule/calendar";
 	}
 	
 }

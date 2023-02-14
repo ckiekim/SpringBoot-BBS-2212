@@ -37,14 +37,15 @@
     	}
     	function schedClick(sid) {
     		schedClicked = true;
-    		console.log(sid);
     		$.ajax({
     			type: 'GET',
 				url: '/schedule/detail/' + sid,
 				success: function(jsonSched) {
 					let sched = JSON.parse(jsonSched);
-					console.log(sched);
-					$('#title2').val(sched.title)
+					$('#sid2').val(sched.sid);
+					$('#title2').val(sched.title);
+					if (sched.isImportant == 1)
+						$('#importance2').prop('checked', true);
 					$('#startDate2').val(sched.startTime.substring(0,10));
 	    			$('#startTime2').val(sched.startTime.substring(11,16));
 	    			$('#endDate2').val(sched.endTime.substring(0,10));
@@ -53,6 +54,13 @@
 	    			$('#updateModal').modal('show');
 				}
     		});
+    	}
+    	function deleteSchedule() {
+    		let sid = $('#sid2').val();
+    		const answer = confirm('정말로 삭제하시겠습니까?');
+    		if (answer) {
+    			location.href = '/schedule/delete/' + sid;
+    		}
     	}
     </script>
 </head>
@@ -90,7 +98,8 @@
                         <td style="height: ${height}px;" onclick="cellClick(${day.sdate})">
                             <div class="d-flex justify-content-between">
                            	<c:if test="${day.isOtherMonth eq 1}">
-                               	<div class="${(day.date eq 0 or day.isHoliday eq 1) ? 'text-danger' : day.date eq 6 ? 'text-primary' : ''}" style="opacity: 0.5;"><strong>${day.day}</strong></div>
+                               	<div class="${(day.date eq 0 or day.isHoliday eq 1) ? 'text-danger' : day.date eq 6 ? 'text-primary' : ''}" 
+                               		 style="opacity: 0.5;"><strong>${day.day}</strong></div>
 	                        	<div style="opacity: 0.5;">
 		                        <c:forEach var="name" items="${day.annivList}" varStatus="loop">
 		                        	${loop.first ? '' : '&middot;'} ${name}
@@ -98,7 +107,8 @@
 	                        	</div>
                            	</c:if>
                            	<c:if test="${day.isOtherMonth eq 0}">
-                               	<div class="${(day.date eq 0 or day.isHoliday eq 1) ? 'text-danger' : day.date eq 6 ? 'text-primary' : ''}"><strong>${day.day}</strong></div>
+                               	<div class="${(day.date eq 0 or day.isHoliday eq 1) ? 'text-danger' : day.date eq 6 ? 'text-primary' : ''}">
+                               		<strong>${day.day}</strong></div>
                                	<div>
 		                        <c:forEach var="name" items="${day.annivList}" varStatus="loop">
 		                        	${loop.first ? '' : '&middot;'} ${name}
@@ -109,7 +119,12 @@
                         <c:forEach var="sched" items="${day.schedList}" varStatus="loop">
                         	<div class="${loop.first ? 'mt-1' : ''}" style="font-size: 12px;" onclick="schedClick(${sched.sid})">
 	                        	${fn:substring(sched.startTime, 11, 16)}
+	                        <c:if test="${sched.isImportant eq 1}">
+	                        	<strong>${sched.title}</strong>
+	                        </c:if>
+	                        <c:if test="${sched.isImportant ne 1}">
 	                        	${sched.title}
+	                        </c:if>
                         	</div>
                         </c:forEach>
                         </td>
@@ -188,7 +203,8 @@
 	                        <tr>
 	                            <td colspan="2" style="text-align: right;">
 	                                <button class="btn btn-primary me-2" type="submit">제출</button>
-	                                <button class="btn btn-secondary" type="reset">취소</button>
+	                                <!-- <button class="btn btn-secondary" type="reset">취소</button> -->
+	                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">종료</button>
 	                            </td>
 	                        </tr>
 	                    </table>
@@ -203,13 +219,14 @@
 			<div class="modal-content">
 				<!-- Modal Header -->
 				<div class="modal-header">
-					<h4 class="modal-title">일정 조회 및 수정</h4>
+					<h4 class="modal-title">일정 조회/수정/삭제</h4>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
 			
 				<!-- Modal body -->
 				<div class="modal-body">
 					<form action="/schedule/update" method="post">
+						<input type="hidden" name="sid" id="sid2">
 						<table class="table table-borderless">
 	                        <tr>
 	                            <td colspan="2">
@@ -225,7 +242,7 @@
 	                            </td>
 	                            <td>
 	                                <label for="startTime2">시작시간</label>
-	                                <select class="form-control" name="startTime2" id="startTime">
+	                                <select class="form-control" name="startTime" id="startTime2">
 	                                <c:forEach var="tl" items="${timeList}">
 	                                    <option value="${tl}" >${tl}</option>
 	                                </c:forEach>
@@ -239,7 +256,7 @@
 	                            </td>
 	                            <td>
 	                                <label for="endTime2">종료시간</label>
-	                                <select class="form-control" name="endTime2" id="endTime">
+	                                <select class="form-control" name="endTime" id="endTime2">
 	                                <c:forEach var="tl" items="${timeList}">
 	                                    <option value="${tl}" >${tl}</option>
 	                                </c:forEach>
@@ -260,8 +277,9 @@
 	                        </tr>
 	                        <tr>
 	                            <td colspan="2" style="text-align: right;">
-	                                <button class="btn btn-primary me-2" type="submit">제출</button>
-	                                <button class="btn btn-secondary" type="reset">취소</button>
+	                                <button class="btn btn-primary me-2" type="submit">수정</button>
+	                                <button class="btn btn-danger me-2" type="button" data-bs-dismiss="modal" onclick="deleteSchedule()">삭제</button>
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">종료</button>
 	                            </td>
 	                        </tr>
 	                    </table>

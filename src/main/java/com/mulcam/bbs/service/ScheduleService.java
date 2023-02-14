@@ -19,4 +19,8 @@ public interface ScheduleService {
 	
 	Schedule getSchedule(int sid);
 	
+	void update(Schedule schedule);
+	
+	void delete(int sid);
+	
 }
