@@ -75,4 +75,17 @@ public class ScheduleServiceImpl implements ScheduleService {
 		schedDao.delete(sid);
 	}
 
+	@Override
+	public List<Schedule> getSchedListByPage(String uid, String startDate, int page) {
+		int offset = (page - 1) * 15;
+		List<Schedule> list = schedDao.getSchedListByPage(uid, startDate, offset);
+		return list;
+	}
+
+	@Override
+	public int getSchedCount(String uid, String startDate) {
+		int count = schedDao.getSchedCount(uid, startDate);
+		return count;
+	}
+
 }

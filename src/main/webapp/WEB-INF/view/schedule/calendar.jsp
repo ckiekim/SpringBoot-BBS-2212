@@ -62,6 +62,9 @@
     			location.href = '/schedule/delete/' + sid;
     		}
     	}
+    	function addAnniversary() {
+    		$('#addAnnivModal').modal('show');
+    	}
     </script>
 </head>
 <body>
@@ -84,7 +87,10 @@
                         <a href="/schedule/calendar/right"><i class="fa-solid fa-angle-right me-2"></i></a>
                         <a href="/schedule/calendar/right2"><i class="fa-solid fa-angles-right"></i></a>
                     </div>
-                    <div><i class="fa-solid fa-pen me-3"></i><i class="fa-solid fa-table-list"></i></div>
+                    <div>
+                    	<a href="#" onclick="addAnniversary()"><i class="fa-solid fa-pen me-3"></i></a>
+                    	<a href="/schedule/list/1"><i class="fa-solid fa-table-list"></i></a>
+                    </div>
                 </div>
                 <table class="table table-bordered mt-2">
                     <tr>
@@ -169,7 +175,7 @@
 	                                <label for="startTime">시작시간</label>
 	                                <select class="form-control" name="startTime" id="startTime">
 	                                <c:forEach var="tl" items="${timeList}">
-	                                    <option value="${tl}" >${tl}</option>
+	                                    <option value="${tl}">${tl}</option>
 	                                </c:forEach>
 	                                </select>
 	                            </td>
@@ -183,7 +189,7 @@
 	                                <label for="endTime">종료시간</label>
 	                                <select class="form-control" name="endTime" id="endTime">
 	                                <c:forEach var="tl" items="${timeList}">
-	                                    <option value="${tl}" >${tl}</option>
+	                                    <option value="${tl}">${tl}</option>
 	                                </c:forEach>
 	                                </select>
 	                            </td>
@@ -280,6 +286,45 @@
 	                                <button class="btn btn-primary me-2" type="submit">수정</button>
 	                                <button class="btn btn-danger me-2" type="button" data-bs-dismiss="modal" onclick="deleteSchedule()">삭제</button>
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">종료</button>
+	                            </td>
+	                        </tr>
+	                    </table>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal" id="addAnnivModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">기념일 추가</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+			
+				<!-- Modal body -->
+				<div class="modal-body">
+					<form action="/schedule/insertAnniv" method="post">
+						<table class="table table-borderless">
+	                        <tr>
+	                            <td>
+	                                <label for="title">제목</label>
+	                                <input class="ms-5 me-2" type="checkbox" name="holiday">공휴일
+	                                <input class="form-control" type="text" id="title" name="title">
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td>
+	                                <label for="annivDate">날짜</label>
+	                                <input class="form-control" type="date" id="annivDate" name="annivDate">
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td style="text-align: right;">
+	                                <button class="btn btn-primary me-2" type="submit">제출</button>
+	                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">종료</button>
 	                            </td>
 	                        </tr>
 	                    </table>

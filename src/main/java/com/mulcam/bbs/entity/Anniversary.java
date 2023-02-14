@@ -7,8 +7,12 @@ public class Anniversary {
 	private int isHoliday;
 	
 	public Anniversary() { }
+	public Anniversary(String aname, String adate, int isHoliday) {
+		this.aname = aname;
+		this.adate = adate;
+		this.isHoliday = isHoliday;
+	}
 	public Anniversary(int aid, String aname, String adate, int isHoliday) {
-		super();
 		this.aid = aid;
 		this.aname = aname;
 		this.adate = adate;

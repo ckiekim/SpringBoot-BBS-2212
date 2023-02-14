@@ -25,4 +25,9 @@ public class AnniversaryServiceImpl implements AnniversaryService {
 		return list;
 	}
 
+	@Override
+	public void insert(Anniversary anniversary) {
+		annivDao.insert(anniversary);
+	}
+
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mulcam.bbs.entity.Anniversary;
 import com.mulcam.bbs.entity.SchDay;
 import com.mulcam.bbs.entity.Schedule;
 import com.mulcam.bbs.service.AnniversaryService;
@@ -29,8 +30,8 @@ import com.mulcam.bbs.service.ScheduleService;
 public class ScheduleController {
 	
 	@Autowired private SchedUtil schedUtil;
-	@Autowired private AnniversaryService annivService;
 	@Autowired private ScheduleService schedService;
+	@Autowired private AnniversaryService annivService;
 	
 	@GetMapping(value = {"/calendar/{arrow}", "/calendar"})
 	public String calendar(@PathVariable(required = false) String arrow, HttpSession session, Model model) {
@@ -193,6 +194,40 @@ public class ScheduleController {
 	public String delete(@PathVariable int sid) {
 		schedService.delete(sid);
 		return "redirect:/schedule/calendar";
+	}
+	
+	@PostMapping("/insertAnniv")
+	public String insertAnniv(HttpServletRequest req) {
+		String aname = req.getParameter("title");
+		int isHoliday = (req.getParameter("holiday") == null) ? 0 : 1;
+		String adate = req.getParameter("annivDate").replace("-", "");
+		Anniversary anniv = new Anniversary(aname, adate, isHoliday);
+		annivService.insert(anniv);
+		return "redirect:/schedule/calendar";
+	}
+	
+	@GetMapping("/list/{page}")
+	public String listView(@PathVariable int page, HttpSession session, Model model) {
+		LocalDate today = LocalDate.now();
+		int year = today.getYear();
+		int month = today.getMonthValue();
+		String date = "일 월 화 수 목 금 토".split(" ")[today.getDayOfWeek().getValue() % 7];
+		String sessionUid = (String) session.getAttribute("uid");
+		session.setAttribute("currentSchedulePage", page);
+		List<Schedule> list = schedService.getSchedListByPage(sessionUid, today.toString().replace("-", ""), page);
+		
+		int totalScheds = schedService.getSchedCount(sessionUid, today.toString().replace("-", ""));
+		int totalPages = (int) Math.ceil(totalScheds / 15.);
+		List<String> pageList = new ArrayList<>();
+		for (int i = 1; i <= totalPages; i++)
+			pageList.add(String.valueOf(i));
+		
+		model.addAttribute("pageList", pageList);
+		model.addAttribute("today", today + "(" + date + ")");
+		model.addAttribute("year", year);
+		model.addAttribute("month", String.format("%02d", month));
+		model.addAttribute("schedList", list);
+		return "schedule/list";
 	}
 	
 }

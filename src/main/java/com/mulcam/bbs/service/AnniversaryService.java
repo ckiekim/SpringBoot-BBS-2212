@@ -10,4 +10,5 @@ public interface AnniversaryService {
 
 	List<Anniversary> getAnnivDays(String start, String end);
 	
+	void insert(Anniversary anniversary);
 }

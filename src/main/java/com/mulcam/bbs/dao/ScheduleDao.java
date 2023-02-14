@@ -34,4 +34,14 @@ public interface ScheduleDao {
 	@Delete("delete from schedule where sid=#{sid}")
 	void delete(int sid);
 	
+	@Select("SELECT * FROM schedule"
+			+ "  WHERE uid=#{uid} and sdate >= #{startDate}"
+			+ "  ORDER BY startTime LIMIT 15 OFFSET #{offset}")
+	List<Schedule> getSchedListByPage(String uid, String startDate, int offset);
+	
+	@Select("SELECT COUNT(sid) FROM schedule"
+			+ "  WHERE uid=#{uid} and sdate >= #{startDate}"
+			+ "  ORDER BY startTime")
+	int getSchedCount(String uid, String startDate);
+	
 }
