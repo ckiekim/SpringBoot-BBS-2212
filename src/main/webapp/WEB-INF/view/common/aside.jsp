@@ -46,7 +46,7 @@
 	                	<a href="#" id="addrSubmit"><span class="badge bg-primary">확인</span></a>
 	                </div>
                    	<a href="#" id="weather"><span class="badge bg-secondary">날씨</span></a><br>
-                    <div id="weatherInfo"></div>
+                    <div id="weatherInfo">${sessionWeather}</div>
                 </div>
                 <button class="btn btn-sm btn-outline-primary mt-3">Edit Profile</button>
             </div>

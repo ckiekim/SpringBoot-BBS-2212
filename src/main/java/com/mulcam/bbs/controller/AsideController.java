@@ -35,7 +35,7 @@ public class AsideController {
 	
 	@ResponseBody
 	@PostMapping("/profile")
-	public String profile(MultipartFile profile, HttpServletRequest req) throws Exception {
+	public String profile(MultipartFile profile, HttpSession session) throws Exception {
 //	public String profile(MultipartHttpServletRequest req) throws Exception {	// 이 코드도 가능
 //		MultipartFile profile = req.getFile("profile");
 		String fname = profile.getOriginalFilename();
@@ -43,32 +43,27 @@ public class AsideController {
 		profile.transferTo(profileFile);
 		
 		String newFname = imageUtil.squareImage(fname);
-		HttpSession session = req.getSession();
 		session.setAttribute("sessionProfile", newFname);
 		return newFname;
 	}
 	
 	@ResponseBody
 	@GetMapping("/stateMsg")
-	public String stateMsg(HttpServletRequest req) {
-		String msg = req.getParameter("stateMsg");
-		HttpSession session = req.getSession();
-		session.setAttribute("sessionStateMsg", msg);
+	public String stateMsg(String stateMsg, HttpSession session) {
+		session.setAttribute("sessionStateMsg", stateMsg);
 		return "0";
 	}
 	
 	@ResponseBody
 	@GetMapping("/address")
-	public String addressChange(HttpServletRequest req) {
-		String addr = req.getParameter("addr");
-		HttpSession session = req.getSession();
+	public String addressChange(String addr, HttpSession session) {
 		session.setAttribute("sessionAddress", addr);
 		return "0";
 	}
 	
 	@ResponseBody
 	@GetMapping("/weather")
-	public String weather(String addr) throws Exception {
+	public String weather(String addr, HttpSession session) throws Exception {
 		String place = addr.strip() + "청";
 		String roadAddr = mapUtil.getRoadAddr(place);
 		List<String> geocode = mapUtil.getGeocode(roadAddr);
@@ -101,6 +96,7 @@ public class AsideController {
 //		String html = "<img src=\"" + iconUrl + "\" height=\"16\" class=\"me-2\">"
 		String html = "<img src=\"" + iconUrl + "\" height=\"28\"> "
 					+ desc + ", 온도: " + temp + "&#8451";
+		session.setAttribute("sessionWeather", html);
 		return html;
 	}
 

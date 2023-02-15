@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <ul class="navbar-nav">
                 <a class="navbar-brand ms-5 me-5" href="#">
-                    <img src="/img/ckworld-logo.png" alt="Logo" style="height:36px;" class="rounded-3">
+                    <img src="/img/ckworld_logo.png" alt="Logo" style="height:36px;" class="rounded-3">
                 </a>
                 <li class="nav-item ms-3">
                     <a class="nav-link ${menu eq 'board' ? "active" : ''}" href="/bbs/board/list?p=1&f=&q="><i class="far fa-list-alt"></i> 게시판</a>
