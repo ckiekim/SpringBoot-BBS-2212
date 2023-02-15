@@ -172,7 +172,6 @@ public class ScheduleController {
 	
 	@PostMapping("/update")
 	public String update(HttpServletRequest req, HttpSession session) {
-		System.out.println("/schedule/update");
 		int isImportant = (req.getParameter("importance") == null) ? 0 : 1;
 		int sid = Integer.parseInt(req.getParameter("sid"));
 		String title = req.getParameter("title");

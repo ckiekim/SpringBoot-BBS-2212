@@ -18,10 +18,10 @@ public class ExceptionHadlingController implements ErrorController {
 	private final String ERROR_ETC_PAGE_PATH = "error/error";
 
 	@RequestMapping(value = "/error")
-	public String handleError(HttpServletRequest request, Model model) {
+	public String handleError(HttpServletRequest req, Model model) {
 
 		// 에러 코드를 획득한다.
-		Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+		Object status = req.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
 		// 에러 코드에 대한 상태 정보
 		HttpStatus httpStatus = HttpStatus.valueOf(Integer.valueOf(status.toString()));

@@ -30,10 +30,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/login") 
-	public String login(HttpServletRequest req, Model model) {
-		String uid = req.getParameter("uid");
-		String pwd = req.getParameter("pwd");
-		HttpSession session = req.getSession();
+	public String login(String uid, String pwd, HttpSession session, Model model) {
 		int result = userService.login(uid, pwd, session);
 		switch(result) {
 		case UserService.CORRECT_LOGIN:
@@ -53,8 +50,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/logout")
-	public String logout(HttpServletRequest req) {
-		HttpSession session = req.getSession();
+	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/bbs/user/login";
 	}
@@ -90,9 +86,8 @@ public class UserController {
 	}
 	
 	@GetMapping("/list/{page}")
-	public String list(@PathVariable int page, HttpServletRequest req, Model model) {
+	public String list(@PathVariable int page, HttpSession session, Model model) {
 		List<User> list = userService.getUserList(page);
-		HttpSession session = req.getSession();
 		session.setAttribute("currentUserPage", page);
 		
 		int totalUsers = userService.getUserCount();
@@ -147,9 +142,8 @@ public class UserController {
 	}
 	
 	@GetMapping("/deleteConfirm/{uid}")
-	public String deleteConfirm(@PathVariable String uid, HttpServletRequest req) {
+	public String deleteConfirm(@PathVariable String uid, HttpSession session) {
 		userService.deleteUser(uid);
-		HttpSession session = req.getSession();
 		return "redirect:/bbs/user/list/" + session.getAttribute("currentUserPage");
 	}
 	

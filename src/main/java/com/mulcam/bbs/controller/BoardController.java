@@ -125,9 +125,9 @@ public class BoardController {
 	
 	@PostMapping("/write")
 	public String write(MultipartHttpServletRequest req) {
-		String uid = (String) req.getParameter("uid");
-		String title = (String) req.getParameter("title");
-		String content = (String) req.getParameter("content");
+		String uid = req.getParameter("uid");
+		String title = req.getParameter("title");
+		String content = req.getParameter("content");
 		List<MultipartFile> fileList = req.getFiles("files");
 		List<String> list = new ArrayList<>();
 		// File upload
@@ -168,8 +168,8 @@ public class BoardController {
 	public String update(MultipartHttpServletRequest req) {
 		int bid = Integer.parseInt(req.getParameter("bid"));
 		String uid = req.getParameter("uid");
-		String title = (String) req.getParameter("title");
-		String content = (String) req.getParameter("content");
+		String title = req.getParameter("title");
+		String content = req.getParameter("content");
 		
 		HttpSession session = req.getSession();
 		List<String> additionalFileList = (List<String>) session.getAttribute("fileList");
