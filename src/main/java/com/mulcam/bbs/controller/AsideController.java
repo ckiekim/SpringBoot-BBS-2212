@@ -117,24 +117,42 @@ public class AsideController {
 		return html;
 	}
 	
-	@GetMapping("/profile")
-	public String profileForm() {
-		return "common/profileForm";
+	@ResponseBody
+	@GetMapping("/profile/{uid}")
+	public String profileForm(@PathVariable String uid) {
+		Profile profile = profileService.getProfile(uid);
+		JSONObject obj = new JSONObject();
+		obj.put("github", profile.getGithub());
+		obj.put("instagram", profile.getInstagram());
+		obj.put("facebook", profile.getFacebook());
+		obj.put("twitter", profile.getTwitter());
+		obj.put("homepage", profile.getHomepage());
+		obj.put("blog", profile.getBlog());
+		obj.put("addr", profile.getAddr());
+		obj.put("filename", profile.getFilename());
+		return obj.toString();
 	}
 	
 	@PostMapping("/profile")
-	public String profile(MultipartHttpServletRequest req, HttpSession session, Model model) throws Exception {
-		String uid = (String) session.getAttribute("uid");
+	public String profile(MultipartHttpServletRequest req, Model model) throws Exception {
+		String uid = req.getParameter("uid");
 		String github = req.getParameter("github");
 		String instagram = req.getParameter("instagram");
+		String facebook = req.getParameter("facebook");
+		String twitter = req.getParameter("twitter");
+		String homepage = req.getParameter("homepage");
+		String blog = req.getParameter("blog");
+		String addr = req.getParameter("addr");
+		String filename = req.getParameter("filename");
+		
 		MultipartFile image = req.getFile("image");
 		byte[] bytes = image.getBytes();
-		String filename = image.getOriginalFilename();
+		String fname = image.getOriginalFilename();
 		int size = bytes.length;
-		Profile profile = new Profile(uid, github, instagram, null, null, null, null, null,
-				bytes, size, filename);
+		Profile profile = new Profile(uid, github, instagram, facebook, twitter, homepage, blog, addr,
+				bytes, size, fname);
 		System.out.println(profile);
-		profileService.insert(profile);
+		//profileService.insert(profile);
 		return "redirect:/aside/imageView";
 	}
 
