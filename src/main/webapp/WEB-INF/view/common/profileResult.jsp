@@ -31,9 +31,9 @@
 				    			<td class="col-10">${profile.instagram}</td>
 				    		</tr>
 				    		<tr class="d-flex">
-				    			<td class="col-2"><img src="/img/avatar.jpg" height="16"></td>
+				    			<td class="col-2"><img src="/img/avatar.png" height="16"></td>
 				    			<td class="col-10">
-				    				<img class="rounded-circle" width="100%" src="/bbs/file/download?file=profile/${fname}">
+				    				<img class="rounded-circle" width="100%" src="/aside/blob/${profile.uid}">
 				    			</td>
 				    		</tr>
 				    		<tr>

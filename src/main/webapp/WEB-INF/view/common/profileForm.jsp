@@ -32,7 +32,7 @@
 				    			<td class="col-10"><input class="form-control" type="text" name="instagram" id="instagram"></td>
 				    		</tr>
 				    		<tr class="d-flex">
-				    			<td class="col-2"><img src="/img/avatar.jpg" height="16"></td>
+				    			<td class="col-2"><img src="/img/avatar.png" height="16"></td>
 				    			<td class="col-10"><input class="form-control" type="file" name="image" id="image"></td>
 				    		</tr>
 				    		<tr>

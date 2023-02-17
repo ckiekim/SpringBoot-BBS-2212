@@ -3,8 +3,11 @@ package com.mulcam.bbs.service;
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
 
@@ -73,6 +76,33 @@ public class ImageUtil {
         OutputStream os = new FileOutputStream(file);
         ImageIO.write(dest, format, os);
         os.close();
+	}
+	
+	public byte[] squareImage(byte[] image, String format) throws Exception {
+		InputStream is = new ByteArrayInputStream(image);
+		BufferedImage buffer = ImageIO.read(is);
+		int width = buffer.getWidth();
+        int height = buffer.getHeight();
+        int size = width, x = 0, y = 0;
+        if (width > height) {
+            size = height;
+            x = (width - size) / 2;
+        } else if (width < height) {
+            size = width;
+            y = (height - size) / 2;
+        }
+        
+        BufferedImage dest = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = dest.createGraphics();
+        g.setComposite(AlphaComposite.Src);
+        g.drawImage(buffer, 0, 0, size, size, x, y, x + size, y + size, null);
+        g.dispose();
+        
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(dest, format, baos);
+        byte[] bytes = baos.toByteArray();
+		
+		return bytes;
 	}
 	
 }

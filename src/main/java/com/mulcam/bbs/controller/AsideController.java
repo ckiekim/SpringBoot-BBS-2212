@@ -1,16 +1,25 @@
 package com.mulcam.bbs.controller;
 
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -19,6 +28,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -125,30 +135,30 @@ public class AsideController {
 				bytes, size, filename);
 		System.out.println(profile);
 		profileService.insert(profile);
-		return "redirect:/schedule/calendar";
+		return "redirect:/aside/imageView";
 	}
 
 	@GetMapping("/imageView")
 	public String imageView(HttpSession session, Model model) throws Exception {
 		String uid = (String) session.getAttribute("uid");
 		Profile profile = profileService.getProfile(uid);
-		
-		InputStream is = new ByteArrayInputStream(profile.getImage());
-		String ext = profile.getFilename().substring(profile.getFilename().lastIndexOf("."));
-		String fname = uploadDir + "/profile/" + uid + ext;
-		OutputStream os = new FileOutputStream(fname);
-		byte[] data = new byte[1024];	// 1024 = 1KB
-		while (true) {
-			int num = is.read(data);
-			if (num == -1)
-				break;
-			os.write(data, 0, num);
-		}
-		os.flush();	os.close();
-		
 		model.addAttribute("profile", profile);
-		model.addAttribute("fname", uid + ext);
 		return "common/profileResult";
+	}
+	
+	@GetMapping("/blob/{uid}")
+	public void blob(@PathVariable String uid, HttpServletResponse res) throws Exception {
+		Profile profile = profileService.getProfile(uid);
+		int idx = profile.getFilename().lastIndexOf('.');
+        String format = profile.getFilename().substring(idx + 1);
+		
+        byte[] bytes = imageUtil.squareImage(profile.getImage(), format);
+		InputStream is = new ByteArrayInputStream(bytes);
+		
+		File file = new File(profile.getFilename());
+	    String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+		res.setContentType(mimeType);
+		IOUtils.copy(is, res.getOutputStream());
 	}
 	
 }
