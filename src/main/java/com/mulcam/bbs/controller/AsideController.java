@@ -121,20 +121,13 @@ public class AsideController {
 	@GetMapping("/profile/{uid}")
 	public String profileForm(@PathVariable String uid) {
 		Profile profile = profileService.getProfile(uid);
-		JSONObject obj = new JSONObject();
-		obj.put("github", profile.getGithub());
-		obj.put("instagram", profile.getInstagram());
-		obj.put("facebook", profile.getFacebook());
-		obj.put("twitter", profile.getTwitter());
-		obj.put("homepage", profile.getHomepage());
-		obj.put("blog", profile.getBlog());
-		obj.put("addr", profile.getAddr());
-		obj.put("filename", profile.getFilename());
+		JSONObject obj = profileService.makeJsonProfile(profile);
 		return obj.toString();
 	}
 	
+	@ResponseBody
 	@PostMapping("/profile")
-	public String profile(MultipartHttpServletRequest req, Model model) throws Exception {
+	public String profile(MultipartHttpServletRequest req, HttpSession session, Model model) throws Exception {
 		String uid = req.getParameter("uid");
 		String github = req.getParameter("github");
 		String instagram = req.getParameter("instagram");
@@ -145,15 +138,25 @@ public class AsideController {
 		String addr = req.getParameter("addr");
 		String filename = req.getParameter("filename");
 		
+		byte[] bytes = null;
+		String fname = "";
+		int size = 0;
 		MultipartFile image = req.getFile("image");
-		byte[] bytes = image.getBytes();
-		String fname = image.getOriginalFilename();
-		int size = bytes.length;
+		if (image != null) {
+			bytes = image.getBytes();
+			fname = image.getOriginalFilename();
+			size = bytes.length;
+		}
 		Profile profile = new Profile(uid, github, instagram, facebook, twitter, homepage, blog, addr,
 				bytes, size, fname);
 		System.out.println(profile);
-		//profileService.insert(profile);
-		return "redirect:/aside/imageView";
+		if (profileService.getProfile(uid) == null)
+			profileService.insert(profile, session);
+		else
+			profileService.update(profile, session);
+		
+		JSONObject obj = profileService.makeJsonProfile(profile);
+		return obj.toString();
 	}
 
 	@GetMapping("/imageView")

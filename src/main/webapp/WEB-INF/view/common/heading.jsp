@@ -53,7 +53,7 @@
     			});
     		});
     		$('#weather').click(getWeatherInfo);
-    		$('#addrChange').click(function(e) {
+    		/* $('#addrChange').click(function(e) {
     			$('#addrInputDisp').attr({'class': 'mt-2'});
     		});
     		$('#addrSubmit').click(function(e) {
@@ -68,7 +68,7 @@
     					$('#address').html(addrInputVal);
     				}
     			});
-    		});
+    		}); */
     	});
     	function getWeatherInfo() {
     		$.ajax({
@@ -86,7 +86,7 @@
     			type: "GET",
                 url: "/aside/profile/" + uid,
                 success: function(result) {
-                    console.log("result");
+                    //console.log("result");
                     const profile = JSON.parse(result);
                     $('#github').val(profile.github);
                     $('#instagram').val(profile.instagram);
@@ -121,9 +121,20 @@
 				processData: false,
 				contentType: false,
                 success: function(result) {
-                    console.log("success");
+                    //console.log("success");
+                    const profile = JSON.parse(result);
+                    console.log(profile);
 		    		$('#profile').show();
+                    /* $('#github2').html(profile.github);
+                    $('#instagram2').html(profile.instagram);
+                    $('#facebook2').html(profile.facebook);
+                    $('#twitter2').html(profile.twitter);
+                    $('#homepage2').html(profile.homepage);
+                    $('#blog2').html(profile.blog);
+                    $('#addr2').html(profile.addr);
+                    $('#filename2').html(profile.filename); */
 		    		$('#hiddenProfile').hide();
+                    location.reload();
                 },
     		});
     	}

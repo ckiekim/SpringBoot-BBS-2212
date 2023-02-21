@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,14 +16,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mulcam.bbs.entity.User;
+import com.mulcam.bbs.service.ProfileService;
 import com.mulcam.bbs.service.UserService;
 
 @Controller
 @RequestMapping("/bbs/user")
 public class UserController {
 
-	@Autowired
-	private UserService userService;
+	@Autowired private UserService userService;
+	@Autowired private ProfileService profileService;
+	@Value("${bbsInitialUrl}") private String bbsInitialUrl;
 	
 	@GetMapping("/login")
 	public String loginForm() {
@@ -34,9 +37,9 @@ public class UserController {
 		int result = userService.login(uid, pwd, session);
 		switch(result) {
 		case UserService.CORRECT_LOGIN:
+			profileService.setAsideValue(uid, session);
 			model.addAttribute("msg", session.getAttribute("uname") + "님 환영합니다.");
-//			model.addAttribute("url", "/bbs/board/list?p=1&f=&q=");
-			model.addAttribute("url", "/schedule/calendar");
+			model.addAttribute("url", bbsInitialUrl);
 			break;
 		case UserService.WRONG_PASSWORD:
 			model.addAttribute("msg", "잘못된 패스워드 입니다. 다시 입력하세요.");

@@ -3,6 +3,7 @@ package com.mulcam.bbs.dao;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.mulcam.bbs.entity.Profile;
 
@@ -16,5 +17,11 @@ public interface ProfileDao {
 	
 	@Select("select * from profile where uid=#{uid}")
 	Profile getProfile(String uid);
+	
+	@Update("update profile set github=#{github}, instagram=#{instagram},"
+			+ "  facebook=#{facebook}, twitter=#{twitter}, homepage=#{homepage}, blog=#{blog}, "
+			+ "  addr=#{addr}, image=#{image}, size=#{size}, filename=#{filename}"
+			+ "  where uid=#{uid}")
+	void update(Profile profile);
 	
 }

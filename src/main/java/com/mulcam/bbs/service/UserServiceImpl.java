@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService {
 			if (BCrypt.checkpw(pwd, u.getPwd())) {
 				session.setAttribute("uid", u.getUid());
 				session.setAttribute("uname", u.getUname());
+				session.setAttribute("sessionEmail", u.getEmail());
 				return UserService.CORRECT_LOGIN;
 			} else {
 				return UserService.WRONG_PASSWORD;
