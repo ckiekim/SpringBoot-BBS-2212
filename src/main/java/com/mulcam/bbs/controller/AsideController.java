@@ -71,12 +71,12 @@ public class AsideController {
 		return "0";
 	}
 	
-	@ResponseBody
-	@GetMapping("/address")
-	public String addressChange(String addr, HttpSession session) {
-		session.setAttribute("sessionAddress", addr);
-		return "0";
-	}
+//	@ResponseBody
+//	@GetMapping("/address")
+//	public String addressChange(String addr, HttpSession session) {
+//		session.setAttribute("sessionAddress", addr);
+//		return "0";
+//	}
 	
 	@ResponseBody
 	@GetMapping("/weather")

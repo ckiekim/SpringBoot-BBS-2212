@@ -190,7 +190,7 @@ public class BoardController {
 			newFileList.add(file.getOriginalFilename());
 			String uploadFile = uploadDir + "/" + file.getOriginalFilename();
 			File fileName = new File(uploadFile);
-			try {
+			try {		// 파일 첨부가 없어도 fileList.size() 값은 1이 됨
 				file.transferTo(fileName);
 			} catch (Exception e) {
 //				e.printStackTrace();

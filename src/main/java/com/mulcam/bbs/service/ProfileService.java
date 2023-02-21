@@ -52,6 +52,8 @@ public class ProfileService {
 			session.setAttribute("sessionBlog", profile.getBlog());
 		if (profile.getAddr() != null)
 			session.setAttribute("sessionAddress", profile.getAddr());
+		if (profile.getFilename() != null)
+			session.setAttribute("sessionFilename", profile.getFilename());
 	}
 	
 	public JSONObject makeJsonProfile(Profile profile) {

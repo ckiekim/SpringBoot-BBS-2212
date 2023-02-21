@@ -3,15 +3,20 @@
 
 			<div class="col-sm-3">
 				<div class="d-flex flex-row">
-					<div>
-		                <img id="profileImg" class="rounded-circle" width="100%"
-		                	 src="/bbs/file/download?file=${empty sessionProfile ? 'avatar_man.png' : sessionProfile}">
+					<div class="me-5">
+					<c:if test="${empty sessionFilename}">
+		                <img id="profileImg" class="rounded-circle" width="90%"
+		                	 src="/img/avatar_man.png">
+					</c:if>
+					<c:if test="${not empty sessionFilename}">
+						<img class="rounded-circle" width="90%" src="/aside/blob/${uid}">
+					</c:if>
 	                </div>
-	                <div class="align-self-end me-4">
+	                <!-- <div class="align-self-end me-4">
 	                	<a href="#" id="profileBtn" >
 	                		<span class="badge bg-light text-secondary">이미지 변경</span>
                 		</a>
-	                </div>
+	                </div> -->
                 </div>
                 <div id="profileInputDisp" class="mt-2 d-none">
                 	<form id="profileForm" enctype="multipart/form-data">
@@ -30,7 +35,7 @@
                 </div>
                 
                 <div class="mt-5" id="profile">
-                    <i class="fa fa-envelope me-2"></i><a href="#">${sessionEmail}</a><br>
+                    <i class="fa fa-envelope me-2"></i>${sessionEmail}<br>
                 <c:if test="${not empty sessionGithub}">
                     <img src="/img/github.png" height="16" class="me-2"><a href="#">${sessionGithub}</a><br>
                 </c:if>
