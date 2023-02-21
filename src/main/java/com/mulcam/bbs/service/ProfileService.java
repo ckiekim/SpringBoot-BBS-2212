@@ -37,6 +37,11 @@ public class ProfileService {
 		setSessionValue(profile, session);
 	}
 	
+	public void updateWithoutImage(Profile profile, HttpSession session) {
+		profileDao.updateWithoutImage(profile);
+		setSessionValue(profile, session);
+	}
+	
 	public void setSessionValue(Profile profile, HttpSession session) {
 		if (profile.getGithub() != null)
 			session.setAttribute("sessionGithub", profile.getGithub());

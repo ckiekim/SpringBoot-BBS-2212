@@ -12,23 +12,12 @@
 						<img class="rounded-circle" width="90%" src="/aside/blob/${uid}">
 					</c:if>
 	                </div>
-	                <!-- <div class="align-self-end me-4">
-	                	<a href="#" id="profileBtn" >
-	                		<span class="badge bg-light text-secondary">이미지 변경</span>
-                		</a>
-	                </div> -->
-                </div>
-                <div id="profileInputDisp" class="mt-2 d-none">
-                	<form id="profileForm" enctype="multipart/form-data">
-                		<input class="form-control form-control-sm" type="file" id="profileInput">
-                	</form>
-                	<a href="#" id="profileSubmit"><span class="badge bg-primary">확인</span></a>
                 </div>
                 
-                <span class="mt-3" id="stateMsg">
-                	${empty sessionStateMsg ? '피할 수 없으면 즐겨라!!!' : sessionStateMsg}
-                </span>
-               	<a href="#" id="stateMsgBtn"><span class="badge bg-secondary">수정</span></a>
+                <div class="mt-2">
+                	<span id="stateMsg">${empty sessionStateMsg ? '피할 수 없으면 즐겨라!!!' : sessionStateMsg}</span>
+               		<a href="#" id="stateMsgBtn"><span class="badge bg-secondary">수정</span></a>
+                </div>
                 <div id="stateMsgInput" class="mt-2 d-none">
                 	<input class="form-control form-control-sm" type="text" id="stateInput">
                 	<a href="#" id="stateMsgSubmit"><span class="badge bg-primary">확인</span></a>
@@ -59,10 +48,6 @@
                    	<span id="address">
                    		${empty sessionAddress ? '서울시 광진구' : sessionAddress}
                    	</span>
-                   	<!-- <div id="addrInputDisp" class="mt-2 d-none">
-	                	<input class="form-control form-control-sm" type="text" id="addrInput">
-	                	<a href="#" id="addrSubmit"><span class="badge bg-primary">확인</span></a>
-	                </div> -->
                    	<a href="#" id="weather"><span class="badge bg-secondary">날씨</span></a><br>
                     <div id="weatherInfo">${sessionWeather}</div>
 	                <button class="btn btn-sm btn-outline-primary mt-3" onclick="editProfile('${uid}')">Edit Profile</button>

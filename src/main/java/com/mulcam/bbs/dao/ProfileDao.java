@@ -24,4 +24,9 @@ public interface ProfileDao {
 			+ "  where uid=#{uid}")
 	void update(Profile profile);
 	
+	@Update("update profile set github=#{github}, instagram=#{instagram},"
+			+ "  facebook=#{facebook}, twitter=#{twitter}, homepage=#{homepage}, blog=#{blog}, "
+			+ "  addr=#{addr} where uid=#{uid}")
+	void updateWithoutImage(Profile profile);
+	
 }

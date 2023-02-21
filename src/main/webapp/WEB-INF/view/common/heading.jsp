@@ -14,27 +14,6 @@
     </style>
     <script>
     	$(document).ready(function() {
-    		$('#profileBtn').click(function(e) {
-    			$('#profileInputDisp').attr({'class': 'mt-2'});
-    		});
-    		$('#profileSubmit').click(function(e) {
-    			$('#profileInputDisp').attr({'class': 'mt-2 d-none'});
-    			let profileInputVal = $('#profileInput')[0];
-    			console.log(profileInputVal.files[0]);
-    			const formData = new FormData();
-   				formData.append('profile', profileInputVal.files[0]);
-   				$.ajax({
-   					type: 'POST',
-    				url: '/aside/profile',
-    				data: formData,
-    				processData: false,
-    				contentType: false,
-    				success: function(result) {
-    					const src = '/bbs/file/download?file=' + result;
-    					$('#profileImg').attr({src});	// attr({src: src})
-    				}
-   				});
-    		});
     		$('#stateMsgBtn').click(function(e) {
     			$('#stateMsgInput').attr({'class': 'mt-2'});
     			$('#stateInput').attr({value: $('#stateMsg').text()});
@@ -53,22 +32,6 @@
     			});
     		});
     		$('#weather').click(getWeatherInfo);
-    		/* $('#addrChange').click(function(e) {
-    			$('#addrInputDisp').attr({'class': 'mt-2'});
-    		});
-    		$('#addrSubmit').click(function(e) {
-    			$('#addrInputDisp').attr({'class': 'mt-2 d-none'});
-    			let addrInputVal = $('#addrInput').val();
-    			$.ajax({
-    				type: 'GET',
-    				url: '/aside/address',
-    				data: {addr: addrInputVal},
-    				success: function(e) {
-    					console.log('address:', addrInputVal);
-    					$('#address').html(addrInputVal);
-    				}
-    			});
-    		}); */
     	});
     	function getWeatherInfo() {
     		$.ajax({
@@ -86,7 +49,6 @@
     			type: "GET",
                 url: "/aside/profile/" + uid,
                 success: function(result) {
-                    //console.log("result");
                     const profile = JSON.parse(result);
                     $('#github').val(profile.github);
                     $('#instagram').val(profile.instagram);
@@ -121,18 +83,9 @@
 				processData: false,
 				contentType: false,
                 success: function(result) {
-                    //console.log("success");
                     const profile = JSON.parse(result);
                     console.log(profile);
 		    		$('#profile').show();
-                    /* $('#github2').html(profile.github);
-                    $('#instagram2').html(profile.instagram);
-                    $('#facebook2').html(profile.facebook);
-                    $('#twitter2').html(profile.twitter);
-                    $('#homepage2').html(profile.homepage);
-                    $('#blog2').html(profile.blog);
-                    $('#addr2').html(profile.addr);
-                    $('#filename2').html(profile.filename); */
 		    		$('#hiddenProfile').hide();
                     location.reload();
                 },

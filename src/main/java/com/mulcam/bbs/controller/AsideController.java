@@ -50,33 +50,12 @@ public class AsideController {
 	@Value("${weatherKey}") private String weatherKey;
 	@Value("${spring.servlet.multipart.location}") private String uploadDir;
 	
-//	@ResponseBody
-//	@PostMapping("/profile")
-//	public String profile(MultipartFile profile, HttpSession session) throws Exception {
-////	public String profile(MultipartHttpServletRequest req) throws Exception {	// 이 코드도 가능
-////		MultipartFile profile = req.getFile("profile");
-//		String fname = profile.getOriginalFilename();
-//		File profileFile = new File(uploadDir + "/" + fname);
-//		profile.transferTo(profileFile);
-//		
-//		String newFname = imageUtil.squareImage(fname);
-//		session.setAttribute("sessionProfile", newFname);
-//		return newFname;
-//	}
-	
 	@ResponseBody
 	@GetMapping("/stateMsg")
 	public String stateMsg(String stateMsg, HttpSession session) {
 		session.setAttribute("sessionStateMsg", stateMsg);
 		return "0";
 	}
-	
-//	@ResponseBody
-//	@GetMapping("/address")
-//	public String addressChange(String addr, HttpSession session) {
-//		session.setAttribute("sessionAddress", addr);
-//		return "0";
-//	}
 	
 	@ResponseBody
 	@GetMapping("/weather")
@@ -139,34 +118,30 @@ public class AsideController {
 		String filename = req.getParameter("filename");
 		
 		byte[] bytes = null;
-		String fname = "";
 		int size = 0;
+		boolean hasImage = false;		// 이미지를 변경하지 않는 경우 대처
 		MultipartFile image = req.getFile("image");
 		if (image != null) {
+			hasImage = true;
 			bytes = image.getBytes();
-			fname = image.getOriginalFilename();
+			filename = image.getOriginalFilename();
 			size = bytes.length;
 		}
 		Profile profile = new Profile(uid, github, instagram, facebook, twitter, homepage, blog, addr,
-				bytes, size, fname);
-		System.out.println(profile);
+				bytes, size, filename);
+//		System.out.println(profile);
 		if (profileService.getProfile(uid) == null)
 			profileService.insert(profile, session);
+		else if (hasImage)
+			profileService.update(profile, session);	// 이미지를 변경하는 경우
 		else
-			profileService.update(profile, session);
+			profileService.updateWithoutImage(profile, session);
 		
 		JSONObject obj = profileService.makeJsonProfile(profile);
 		return obj.toString();
 	}
-
-	@GetMapping("/imageView")
-	public String imageView(HttpSession session, Model model) throws Exception {
-		String uid = (String) session.getAttribute("uid");
-		Profile profile = profileService.getProfile(uid);
-		model.addAttribute("profile", profile);
-		return "common/profileResult";
-	}
 	
+	// BLOB 타입의 이미지를 출력하는 방법
 	@GetMapping("/blob/{uid}")
 	public void blob(@PathVariable String uid, HttpServletResponse res) throws Exception {
 		Profile profile = profileService.getProfile(uid);
@@ -178,6 +153,7 @@ public class AsideController {
 		
 		File file = new File(profile.getFilename());
 	    String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+//	    System.out.println("MIME type: " + mimeType);
 		res.setContentType(mimeType);
 		IOUtils.copy(is, res.getOutputStream());
 	}
