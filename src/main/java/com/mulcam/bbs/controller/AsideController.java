@@ -137,8 +137,8 @@ public class AsideController {
 		else
 			profileService.updateWithoutImage(profile, session);
 		
-		JSONObject obj = profileService.makeJsonProfile(profile);
-		return obj.toString();
+//		JSONObject obj = profileService.makeJsonProfile(profile);
+		return "0";
 	}
 	
 	// BLOB 타입의 이미지를 출력하는 방법

@@ -33,11 +33,13 @@ public class UserController {
 	}
 	
 	@PostMapping("/login") 
-	public String login(String uid, String pwd, HttpSession session, Model model) {
+	public String login(String uid, String pwd, HttpSession session, Model model) throws Exception {
 		int result = userService.login(uid, pwd, session);
 		switch(result) {
 		case UserService.CORRECT_LOGIN:
 			profileService.setAsideValue(uid, session);
+			String todayQuote = profileService.getTodayQuote();
+			session.setAttribute("sessionStateMsg", todayQuote);
 			model.addAttribute("msg", session.getAttribute("uname") + "님 환영합니다.");
 			model.addAttribute("url", bbsInitialUrl);
 			break;

@@ -39,7 +39,7 @@
                 url: "/aside/weather",
                 data: {'addr': $('#address').text()},
                 success: function(result) {
-                    console.log("success");
+                    // console.log("success");
                     $('#weatherInfo').html(result);
                 },
     		});
@@ -83,8 +83,8 @@
 				processData: false,
 				contentType: false,
                 success: function(result) {
-                    const profile = JSON.parse(result);
-                    console.log(profile);
+                    /* const profile = JSON.parse(result);
+                    console.log(profile); */
 		    		$('#profile').show();
 		    		$('#hiddenProfile').hide();
                     location.reload();

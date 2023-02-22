@@ -1,9 +1,13 @@
 package com.mulcam.bbs.service;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.mulcam.bbs.dao.ProfileDao;
@@ -13,6 +17,7 @@ import com.mulcam.bbs.entity.Profile;
 public class ProfileService {
 
 	@Autowired private ProfileDao profileDao;
+	@Value("${spring.servlet.multipart.location}") private String uploadDir;
 	
 	public void insert(Profile profile, HttpSession session) {
 		profileDao.insert(profile);
@@ -72,6 +77,16 @@ public class ProfileService {
 		obj.put("addr", profile.getAddr());
 		obj.put("filename", profile.getFilename());
 		return obj;
+	}
+	
+	public String getTodayQuote() throws Exception {
+		BufferedReader br = new BufferedReader(new FileReader(uploadDir + "/data/todayQuote.txt"), 1024);
+		int index = (int) Math.floor(Math.random() * 100);
+		String result = null;
+		for (int i=0; i<=index; i++)
+			result = br.readLine();
+		br.close();
+		return result;
 	}
 	
 }
