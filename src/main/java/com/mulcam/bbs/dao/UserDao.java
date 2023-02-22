@@ -26,6 +26,9 @@ public interface UserDao {
 	@Update("UPDATE users SET pwd=#{pwd}, uname=#{uname}, email=#{email} WHERE uid=#{uid}")
 	public void updateUser(User user);
 	
+	@Update("UPDATE users SET uname=#{uname}, email=#{email} WHERE uid=#{uid}")
+	public void updateUserWithoutPassword(User user);
+	
 	@Update("UPDATE users SET isDeleted=1 WHERE uid=#{uid}")
 	public void deleteUser(String uid);
 	

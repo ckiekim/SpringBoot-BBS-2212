@@ -42,8 +42,9 @@ public class UserServiceImpl implements UserService {
 		if (newPwd.length() > 0) {
 			String cryptedPwd = BCrypt.hashpw(newPwd, BCrypt.gensalt());
 			user.setPwd(cryptedPwd);
-		}
-		userDao.updateUser(user);	 
+			userDao.updateUser(user);	 
+		} else 
+			userDao.updateUserWithoutPassword(user);
 	}
 
 	@Override

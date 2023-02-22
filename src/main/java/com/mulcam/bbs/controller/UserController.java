@@ -125,11 +125,13 @@ public class UserController {
 			user = new User(uid, uname, email);
 			userService.updateUser(user, "");
 			session.setAttribute("uname", uname);
+			session.setAttribute("sessionEmail", email);
 			return "redirect:/bbs/user/list/" + session.getAttribute("currentUserPage");			
 		} else if (pwd.equals(pwd2)) {			// 패스워드가 올바른 경우
 			user = new User(uid, uname, email);
 			userService.updateUser(user, pwd);
 			session.setAttribute("uname", uname);
+			session.setAttribute("sessionEmail", email);
 			return "redirect:/bbs/user/list/" + session.getAttribute("currentUserPage");
 		} else {								// 패스워드를 잘못 입력한 경우
 			model.addAttribute("msg", "패스워드 입력이 잘못되었습니다.");
