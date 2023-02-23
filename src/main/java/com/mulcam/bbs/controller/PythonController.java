@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mulcam.bbs.service.KoGPTUtil;
+
 @Controller
 @RequestMapping("/python")
 public class PythonController {
 	
+	@Autowired private KoGPTUtil koGPTUtil;
 	@Value("${naver.IPaddr}") private String ipAddr;
 
 	@GetMapping("/chatbot")
@@ -46,6 +51,19 @@ public class PythonController {
 		br.close();
 		
 		return sb.toString();
+	}
+	
+	@GetMapping("/genText")
+	public String genTextForm() {
+		return "python/genText";
+	}
+	
+	@PostMapping("/genText")
+	public String genTextResult(String prompt, int maxTokens, int numResults, Model model) throws Exception {
+		List<String> list = koGPTUtil.generateText(prompt, maxTokens, numResults);
+//		list.forEach(x -> System.out.println(x));
+		model.addAttribute("textList", list);
+		return "python/genText";
 	}
 	
 }

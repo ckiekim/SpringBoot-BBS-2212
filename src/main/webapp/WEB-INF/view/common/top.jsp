@@ -46,6 +46,8 @@
 	                <ul class="dropdown-menu">
 	                    <li><a class="dropdown-item" href="/python/chatbot">Streamlit</a></li>
 	                    <li><a class="dropdown-item" href="/python/chatbot2">챗봇</a></li>
+	                    <li><hr class="dropdown-divider"></hr></li>
+	                    <li><a class="dropdown-item" href="/python/genText">문장생성(KoGPT)</a></li>
 	                </ul>
 	            </li>
 	            <li class="nav-item ms-3">
