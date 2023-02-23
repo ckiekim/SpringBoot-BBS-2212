@@ -35,7 +35,7 @@
 			                        </td>
 			                        <td class="col-6">
 			                        	<label for="numResults">결과 개수</label>
-			                        	<input class="form-control" type="number" name="numResults" id="numResults" value="2">
+			                        	<input class="form-control" type="number" name="numResults" id="numResults" value="1">
 			                        </td>
 			                    </tr>
 			                    
@@ -47,7 +47,7 @@
 			                    </tr>
 			                </table>
 			            </form>
-			            <c:forEach var="text" items="${textList}">
+		            <c:forEach var="text" items="${textList}">
 						<div class="card mt-3">
 							<div class="card-body">${text}</div>
 						</div>			        

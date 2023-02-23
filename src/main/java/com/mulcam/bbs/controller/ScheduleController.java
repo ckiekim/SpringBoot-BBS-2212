@@ -37,7 +37,6 @@ public class ScheduleController {
 	public String calendar(@PathVariable(required = false) String arrow, HttpSession session, Model model) {
 		LocalDate today = LocalDate.now();
 		String date = "일 월 화 수 목 금 토".split(" ")[today.getDayOfWeek().getValue() % 7];
-//		int[] monthLength = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; 
 		int year = 2000, month = 1;
 		String sessionMonthYear = (String) session.getAttribute("scheduleMonthYear");
 		if (sessionMonthYear == null) {
@@ -73,15 +72,12 @@ public class ScheduleController {
 		}
 		sessionMonthYear = String.format("%d.%02d", year, month);
 		session.setAttribute("scheduleMonthYear", sessionMonthYear);
-//		if (schedUtil.isLeapYear(year))
-//			monthLength[1] = 29;
 		String sessionUid = (String) session.getAttribute("uid");
 		
 		List<SchDay> week = new ArrayList<>();
 		List<List<SchDay>> calendar = new ArrayList<>();
 		LocalDate startDay = LocalDate.parse(String.format("%d-%02d-01", year, month));
 		int startDate = startDay.getDayOfWeek().getValue() % 7;		// 1 ~ 7 사이의 값을 0 ~ 6 사이의 값으로
-//		LocalDate lastDay = LocalDate.parse(String.format("%d-%02d-%d", year, month, monthLength[month-1]));
 		LocalDate lastDay = startDay.withDayOfMonth(startDay.lengthOfMonth());
 		int lastDate = lastDay.getDayOfWeek().getValue() % 7;
 		
@@ -106,7 +102,6 @@ public class ScheduleController {
 		
 		// 둘째 주부터 해당월의 마지막까지
 		int day = 8 - startDate;
-//		for (int k=day, i=0; k<=monthLength[month-1]; k++, i++) {
 		for (int k=day, i=0; k<=lastDay.getDayOfMonth(); k++, i++) {
 			if (i % 7 == 0)
 				week = new ArrayList<>();

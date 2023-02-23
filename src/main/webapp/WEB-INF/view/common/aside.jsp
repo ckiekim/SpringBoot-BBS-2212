@@ -5,8 +5,7 @@
 				<div class="d-flex flex-row">
 					<div class="me-5">
 					<c:if test="${empty sessionFilename}">
-		                <img id="profileImg" class="rounded-circle" width="90%"
-		                	 src="/img/avatar_man.png">
+		                <img class="rounded-circle" width="90%" src="/img/avatar_man.png">
 					</c:if>
 					<c:if test="${not empty sessionFilename}">
 						<img class="rounded-circle" width="90%" src="/aside/blob/${uid}">
@@ -15,11 +14,12 @@
                 </div>
                 
                 <div class="mt-2">
-                	<span id="stateMsg">${empty sessionStateMsg ? '피할 수 없으면 즐겨라!!!' : sessionStateMsg}</span>
+                	<span id="stateMsg">${sessionStateMsg}</span>
                		<a href="#" id="stateMsgBtn"><span class="badge bg-secondary">수정</span></a>
                 </div>
                 <div id="stateMsgInput" class="mt-2 d-none">
-                	<input class="form-control form-control-sm" type="text" id="stateInput">
+                	<input class="form-control form-control-sm" type="text" id="stateInput"
+                		   onkeyup="if(window.event.keyCode==13) {changeStateMsg()}">
                 	<a href="#" id="stateMsgSubmit"><span class="badge bg-primary">확인</span></a>
                 </div>
                 

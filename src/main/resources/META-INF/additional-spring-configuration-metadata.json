@@ -63,5 +63,15 @@
     "name": "naver.ocr.secretKey",
     "type": "java.lang.String",
     "description": "A description for 'naver.ocr.secretKey'"
+  },
+  {
+    "name": "bbsInitialUrl",
+    "type": "java.lang.String",
+    "description": "A description for 'bbsInitialUrl'"
+  },
+  {
+    "name": "kakao.apiKey",
+    "type": "java.lang.String",
+    "description": "A description for 'kakao.apiKey'"
   }
 ]}

@@ -89,7 +89,6 @@ public class AsideController {
 		Double temp_ = (Double) main.get("temp");
 		String temp = String.format("%.1f", temp_);
 		
-//		String html = "<img src=\"" + iconUrl + "\" height=\"16\" class=\"me-2\">"
 		String html = "<img src=\"" + iconUrl + "\" height=\"28\"> "
 					+ desc + ", 온도: " + temp + "&#8451";
 		session.setAttribute("sessionWeather", html);
@@ -137,7 +136,6 @@ public class AsideController {
 		else
 			profileService.updateWithoutImage(profile, session);
 		
-//		JSONObject obj = profileService.makeJsonProfile(profile);
 		return "0";
 	}
 	
