@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:set var="height" value="${600 / numberOfWeeks}"></c:set>
+<c:set var="todaySdate" value="${fn:substring(today,0,4)}${fn:substring(today,5,7)}${fn:substring(today,8,10)}"></c:set>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -46,7 +47,7 @@
                 <c:forEach var="week" items="${calendar}">
                     <tr>
                     <c:forEach var="day" items="${week}">
-                        <td style="height: ${height}px;" onclick="cellClick(${day.sdate})">
+                        <td style="height: ${height}px; ${todaySdate eq day.sdate ? 'background-color: #efffff;' : ''}" onclick="cellClick(${day.sdate})">
                             <div class="d-flex justify-content-between">
                            	<c:if test="${day.isOtherMonth eq 1}">
                                	<div class="${(day.date eq 0 or day.isHoliday eq 1) ? 'text-danger' : day.date eq 6 ? 'text-primary' : ''}" 
