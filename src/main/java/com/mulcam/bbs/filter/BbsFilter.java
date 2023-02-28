@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,15 +21,16 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class BbsFilter extends HttpFilter implements Filter {
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		HttpServletResponse httpResponse = (HttpServletResponse) response;
+	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+		HttpServletRequest httpRequest = (HttpServletRequest) req;
+		HttpServletResponse httpResponse = (HttpServletResponse) res;
 		HttpSession session = httpRequest.getSession();
 		session.setMaxInactiveInterval(3600*10); 		// 10 hours
 		
 		String uri = httpRequest.getRequestURI();
-//		System.out.println("BbsFilter.uri:" + uri);
+		
 		if (uri.contains("board"))
 			session.setAttribute("menu", "board");
 		else if (uri.contains("user"))
@@ -47,6 +50,9 @@ public class BbsFilter extends HttpFilter implements Filter {
 								"/api", "/crawling", "/python", "/schedule", "/aside"};
 		for (String routing: urlPatterns) {
 			if (uri.contains(routing)) {
+				String ipAddr = httpRequest.getRemoteAddr();
+				if (!uri.contains("/aside"))
+					log.info("{} is called from {}", uri, ipAddr);
 				String uid = (String) session.getAttribute("uid");
 				if (uid == null || uid.equals("")) {
 					httpResponse.sendRedirect("/bbs/user/login");
@@ -56,7 +62,7 @@ public class BbsFilter extends HttpFilter implements Filter {
 			}
 		}
 		
-		chain.doFilter(request, response);
+		chain.doFilter(req, res);
 	}
 
 }

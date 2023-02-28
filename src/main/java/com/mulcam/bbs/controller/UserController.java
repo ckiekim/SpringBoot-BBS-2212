@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,8 @@ import com.mulcam.bbs.service.UserService;
 @Controller
 @RequestMapping("/bbs/user")
 public class UserController {
-
+	private final Logger log = LoggerFactory.getLogger(getClass());
+	
 	@Autowired private UserService userService;
 	@Autowired private ProfileService profileService;
 	@Value("${bbsInitialUrl}") private String bbsInitialUrl;
@@ -40,7 +43,9 @@ public class UserController {
 			profileService.setAsideValue(uid, session);
 			String todayQuote = profileService.getTodayQuote();
 			session.setAttribute("sessionStateMsg", todayQuote);
-			model.addAttribute("msg", session.getAttribute("uname") + "님 환영합니다.");
+			String uname = (String) session.getAttribute("uname");
+			log.info("Login: {}, {}", uid, uname);
+			model.addAttribute("msg", uname + "님 환영합니다.");
 			model.addAttribute("url", bbsInitialUrl);
 			break;
 		case UserService.WRONG_PASSWORD:
@@ -56,6 +61,9 @@ public class UserController {
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
+		String uid = (String) session.getAttribute("uid");
+		String uname = (String) session.getAttribute("uname");
+		log.info("Logout: {}, {}", uid, uname);
 		session.invalidate();
 		return "redirect:/bbs/user/login";
 	}
@@ -80,6 +88,7 @@ public class UserController {
 			return "user/alertMsg";
 		}
 		if (pwd.equals(pwd2)) {
+			log.info("Register: {}, {}", uid, uname);
 			user = new User(uid, pwd, uname, email);
 			userService.registerUser(user);
 			return "redirect:/bbs/user/login";
