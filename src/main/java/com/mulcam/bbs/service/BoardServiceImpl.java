@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.mulcam.bbs.dao.BoardDao;
 import com.mulcam.bbs.dao.ReplyDao;
 import com.mulcam.bbs.entity.Board;
+import com.mulcam.bbs.entity.Like;
 import com.mulcam.bbs.entity.Reply;
 
 @Service
@@ -76,6 +77,18 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void insertReply(Reply reply) {
 		replyDao.insertReply(reply);
+	}
+
+	@Override
+	public int updateLikeCount(int bid, String uid) {
+		Like like = boardDao.getLikeEntry(bid, uid);
+		if (like == null) {
+			like = new Like(bid, uid);
+			boardDao.insertLike(like);
+			boardDao.increaseCount(bid, "likeCount");
+		}
+		int count = boardDao.getLikeCount(bid);
+		return count;
 	}
 
 }

@@ -56,10 +56,11 @@
                 <table class="table mt-2">
                     <tr class="table-secondary ">
                         <th class="col-1">번호</th>
-                        <th class="col-6">제목</th>
+                        <th class="col-5">제목</th>
                         <th class="col-2">글쓴이</th>
                         <th class="col-2">날짜/시간</th>
                         <th class="col-1">조회수</th>
+                        <th class="col-1">좋아요</th>
                     </tr>
                 <c:forEach var="board" items="${boardList}">
                     <tr>
@@ -81,6 +82,7 @@
                         </c:if>
                         </td>
                         <td>${board.viewCount}</td>
+                        <td>${board.likeCount}</td>
                     </tr>
                 </c:forEach>    
                 </table>

@@ -23,8 +23,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -56,7 +58,7 @@ public class BoardController {
 		model.addAttribute("field", field);
 		model.addAttribute("query", query);
 		
-		int totalBoardNo = boardService.getBoardCount("bid", "");
+		int totalBoardNo = boardService.getBoardCount(field, query);
 		int totalPages = (int) Math.ceil(totalBoardNo / 10.);
 		
 		int startPage = (int)(Math.ceil((page-0.5)/10) - 1) * 10 + 1;
@@ -250,6 +252,13 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	@ResponseBody
+	@GetMapping("/like/{bid}/{uid}")
+	public String like(@PathVariable int bid, @PathVariable String uid) {
+		int count = boardService.updateLikeCount(bid, uid);
+		return count + "";
 	}
 	
 }

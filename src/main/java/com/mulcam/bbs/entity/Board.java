@@ -12,6 +12,7 @@ public class Board {
 	private int replyCount;
 	private int isDeleted;
 	private String files;
+	private int likeCount;
 	private String uname;
 	
 	public Board() {}
@@ -29,8 +30,8 @@ public class Board {
 		this.content = content;
 		this.files = files;
 	}
-	public Board(int bid, String uid, String title, String content, LocalDateTime modTime, int viewCount, int replyCount,
-			int isDeleted, String files, String uname) {
+	public Board(int bid, String uid, String title, String content, LocalDateTime modTime, int viewCount,
+			int replyCount, int isDeleted, String files, int likeCount, String uname) {
 		this.bid = bid;
 		this.uid = uid;
 		this.title = title;
@@ -40,8 +41,10 @@ public class Board {
 		this.replyCount = replyCount;
 		this.isDeleted = isDeleted;
 		this.files = files;
+		this.likeCount = likeCount;
 		this.uname = uname;
 	}
+	
 	public int getBid() {
 		return bid;
 	}
@@ -95,6 +98,12 @@ public class Board {
 	}
 	public void setFiles(String files) {
 		this.files = files;
+	}
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
 	}
 	public String getUname() {
 		return uname;

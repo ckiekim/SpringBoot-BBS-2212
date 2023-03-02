@@ -10,6 +10,18 @@
     <style>
         .disabled-link { pointer-events: none; }
     </style>
+    <script>
+    	function likeClick(mid, uid) {
+    		console.log("==============", mid, uid);
+    		$.ajax({
+    			type: 'GET',
+    			url: '/bbs/board/like/' + mid + '/' + uid,
+    			success: function(count) {
+    				$('#likeCount').html(count);
+    			}
+    		});
+    	}
+    </script>
 </head>
 
 <body style="height: 2000px">
@@ -56,6 +68,17 @@
                     <div class="col-4 text-end">
                         <h5>${board.uname}</h5>
                         <h6>조회 ${board.viewCount}&nbsp;&nbsp;댓글 ${board.replyCount}</h6>
+                        <h6>
+                        <c:if test="${board.uid eq uid}">
+	                        <a href="#"><i class="fa-solid fa-heart"></i></a> ${board.likeCount}
+	                    </c:if>
+                        <c:if test="${board.uid ne uid}">
+	                        <a href="#" onclick="likeClick(${board.bid}, '${uid}')">
+	                        	<i class="fa-solid fa-heart"></i> 
+	                        </a>
+	                        <span id="likeCount">${board.likeCount}</span>
+	                    </c:if>
+                        </h6>
                     </div>
 
                     <div class="col-12"><hr></div>

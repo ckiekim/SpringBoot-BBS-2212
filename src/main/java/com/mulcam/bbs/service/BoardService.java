@@ -27,4 +27,6 @@ public interface BoardService {
 	
 	public void insertReply(Reply reply);
 	
+	public int updateLikeCount(int bid, String uid);
+	
 }
