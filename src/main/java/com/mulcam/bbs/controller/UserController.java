@@ -151,15 +151,18 @@ public class UserController {
 		}
 	}
 	
-	@GetMapping("/delete/{uid}")
-	public String delete(@PathVariable String uid, Model model) {
-		model.addAttribute("uid", uid);
+	// 관리자가 회원 삭제를 할 때, uid 값으로 관리자의 사진을 불러오는데
+	// PathVariable에서 uid를 사용하면 관리자의 uid와 혼동되어 사진을 가져올 수 없음
+	// uid를 userId로 변경함. (2023-03-02 Fixed)
+	@GetMapping("/delete/{userId}")
+	public String delete(@PathVariable String userId, Model model) {
+		model.addAttribute("userId", userId);
 		return "user/delete";
 	}
 	
-	@GetMapping("/deleteConfirm/{uid}")
-	public String deleteConfirm(@PathVariable String uid, HttpSession session) {
-		userService.deleteUser(uid);
+	@GetMapping("/deleteConfirm/{userId}")
+	public String deleteConfirm(@PathVariable String userId, HttpSession session) {
+		userService.deleteUser(userId);
 		return "redirect:/bbs/user/list/" + session.getAttribute("currentUserPage");
 	}
 	
