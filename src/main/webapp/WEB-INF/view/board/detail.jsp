@@ -83,7 +83,8 @@
 
                     <div class="col-12"><hr></div>
                     <div class="col-12">
-                        ${fn:replace(board.content, newline, '<br>')}
+                        <!-- ${fn:replace(board.content, newline, '<br>')} -->
+                        ${board.content}	<!-- CK Editor를 사용한 경우 -->
                     </div>
 
                     <div class="col-12"><hr></div>

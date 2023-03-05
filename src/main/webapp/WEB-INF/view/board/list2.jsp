@@ -55,12 +55,12 @@
                 <hr>
                 <table class="table mt-2">
                     <tr class="table-secondary ">
-                        <th style="width:8%">번호</th>
-                        <th style="width:50%">제목</th>
-                        <th style="width:12%">글쓴이</th>
-                        <th style="width:14%">날짜/시간</th>
-                        <th style="width:8%">조회수</th>
-                        <th style="width:8%">좋아요</th>
+                        <th class="col-1">번호</th>
+                        <th class="col-5">제목</th>
+                        <th class="col-2">글쓴이</th>
+                        <th class="col-2">날짜/시간</th>
+                        <th class="col-1">조회수</th>
+                        <th class="col-1">좋아요</th>
                     </tr>
                 <c:forEach var="board" items="${boardList}">
                     <tr>
