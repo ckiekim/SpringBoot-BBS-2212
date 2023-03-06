@@ -21,33 +21,31 @@
             <div class="col-sm-9">
             	<h3><strong>게시글 쓰기</strong></h3>
             	<hr>
-                <div class="row">
-		            <form action="/bbs/board/write" method="post" enctype="multipart/form-data">
-		            	<input type="hidden" name="uid" value="${uid}">
-		                <table class="table table-borderless">
-		                    <tr class="d-flex">
-		                        <td class="col-1"><label for="title">제목</label></td>
-		                        <td class="col-11"><input class="form-control" type="text" name="title" id="title"></td>
-		                    </tr>
-		                    <tr class="d-flex">
-		                        <td class="col-1"><label for="content">내용</label></td>
-		                        <td class="col-11">
-		                        	<textarea class="form-control" name="content" id="content" rows="10"></textarea>
-		                        </td>
-		                    </tr>
-		                    <tr class="d-flex">
-		                        <td class="col-1"><label for="files">첨부파일</label></td>
-		                        <td class="col-11"><input class="form-control" type="file" name="files" id="files" multiple></td>
-		                    </tr>
-		                    <tr>
-		                        <td colspan="2" style="text-align: center;">
-		                            <input class="btn btn-primary" type="submit" value="제출">
-		                            <input class="btn btn-secondary" type="reset" value="취소">
-		                        </td>
-		                    </tr>
-		                </table>
-		            </form>
-			    </div>
+	            <form action="/bbs/board/write" method="post" enctype="multipart/form-data">
+	            	<input type="hidden" name="uid" value="${uid}">
+	                <table class="table table-borderless">
+	                    <tr>
+	                        <td style="width:10%"><label for="title" class="col-form-label">제목</label></td>
+	                        <td style="width:90%"><input class="form-control" type="text" name="title" id="title"></td>
+	                    </tr>
+	                    <tr>
+	                        <td><label for="content" class="col-form-label">내용</label></td>
+	                        <td>
+	                        	<textarea class="form-control" name="content" id="content" rows="10"></textarea>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <td><label for="files" class="col-form-label">첨부파일</label></td>
+	                        <td><input class="form-control" type="file" name="files" id="files" multiple></td>
+	                    </tr>
+	                    <tr>
+	                        <td colspan="2" style="text-align: center;">
+	                            <input class="btn btn-primary" type="submit" value="제출">
+	                            <input class="btn btn-secondary" type="reset" value="취소">
+	                        </td>
+	                    </tr>
+	                </table>
+	            </form>
             </div>
             <!-- =================== main =================== -->
             

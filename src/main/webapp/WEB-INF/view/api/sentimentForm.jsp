@@ -22,8 +22,8 @@
 			            <form action="/api/sentiment" method="post">
 			                <table class="table table-borderless">
 			                    <tr>
-			                        <td>콘텐트</td>
-			                        <td><textarea name="content" cols="80" rows="5"></textarea></td>
+			                        <td style="width:10%">콘텐트</td>
+			                        <td style="width:90%"><textarea name="content" class="form-control" rows="5"></textarea></td>
 			                    </tr>
 			                        </td>
 			                    </tr>

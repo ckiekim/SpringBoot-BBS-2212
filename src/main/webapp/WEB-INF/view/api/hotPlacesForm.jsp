@@ -20,38 +20,44 @@
             <div class="col-sm-9">
             	<h3><strong>Hot Places</strong> <small>(행안부 도로명주소, 네이버 Geocode/Static Map API)</small></h3>
             	<hr>
-            	<form action="/api/hotPlaces" method="post">
-					<table class="table table-borderless">
-						<tr>
-							<td>줌 레벨</td>
-							<td colspan="3" style="text-align: left;">
-								<select name="level">
-								<c:forEach var="num" items="${levelList}" varStatus="loop">
-									<option value="${num}" ${(num eq '12') ? "selected" : ''}>${num}</option>
-								</c:forEach>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>지명</td>
-							<td><input type="text" name="places"></td>
-							<td><input type="text" name="places"></td>
-							<td><input type="text" name="places"></td>
-						</tr>
-						<tr>
-							<td> </td>
-							<td><input type="text" name="places"></td>
-							<td><input type="text" name="places"></td>
-							<td><input type="text" name="places"></td>
-						</tr>
-						<tr>
-							<td colspan="4">
-								<button type="submit" class="btn btn-primary me-2">실행</button>
-                            	<button type="reset" class="btn btn-secondary">취소</button>
-							</td>
-						</tr>
-					</table>
-				</form>
+            	<div class="row">
+				    <div class="col-1"></div>
+			        <div class="col-10">
+		            	<form action="/api/hotPlaces" method="post">
+							<table class="table table-borderless">
+								<tr>
+									<td><label class="col-form-label" for="level">줌 레벨</label></td>
+									<td>
+										<select name="level" id="level" class="form-control">
+										<c:forEach var="num" items="${levelList}" varStatus="loop">
+											<option value="${num}" ${(num eq '12') ? "selected" : ''}>${num}</option>
+										</c:forEach>
+										</select>
+									</td>
+									<td colspan="2"></td>
+								</tr>
+								<tr>
+									<td style="width:10%"><label class="col-form-label" for="place">지명</label></td>
+									<td style="width:30%"><input type="text" name="places" id="place" class="form-control"></td>
+									<td style="width:30%"><input type="text" name="places" class="form-control"></td>
+									<td style="width:30%"><input type="text" name="places" class="form-control"></td>
+								</tr>
+								<tr>
+									<td> </td>
+									<td><input type="text" name="places" class="form-control"></td>
+									<td><input type="text" name="places" class="form-control"></td>
+									<td><input type="text" name="places" class="form-control"></td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<button type="submit" class="btn btn-primary me-2">실행</button>
+		                            	<button type="reset" class="btn btn-secondary">취소</button>
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+					<div class="col-1"></div>
 			</div>
             <!-- =================== main =================== -->
             

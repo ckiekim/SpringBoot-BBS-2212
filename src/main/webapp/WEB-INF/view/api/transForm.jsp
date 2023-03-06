@@ -23,8 +23,8 @@
 			            <form action="/api/translate" method="post">
 			                <table class="table table-borderless">
 			                    <tr>
-			                        <td>텍스트</td>
-			                        <td><textarea name="text" cols="80" rows="5"></textarea></td>
+			                        <td style="width:10%">텍스트</td>
+			                        <td style="width:90%"><textarea name="text" class="form-control" rows="5"></textarea></td>
 			                    </tr>
 			                    <tr>
 			                        <td>언어 선택</td>

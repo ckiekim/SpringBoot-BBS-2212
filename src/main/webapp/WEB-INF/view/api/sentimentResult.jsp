@@ -23,13 +23,13 @@
 				    <div class="col-1"></div>
 			        <div class="col-10">
 		                <table class="table">
-		                    <tr class="d-flex">
-		                        <td class="col-1">콘텐트</td>
-		                        <td class="col-11">${content}</td>
+		                    <tr>
+		                        <td style="width:10%">콘텐트</td>
+		                        <td style="width:90%">${content}</td>
 		                    </tr>
-		                    <tr class="d-flex">
-		                        <td class="col-1">감성</td>
-		                        <td class="col-11" style="background-color: aliceblue;"><strong>${result}</strong></td>
+		                    <tr>
+		                        <td>감성</td>
+		                        <td style="background-color: aliceblue;"><strong>${result}</strong></td>
 		                    </tr>
 		                    <tr>
 		                        <td colspan="2" style="text-align: center;">

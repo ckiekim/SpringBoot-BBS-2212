@@ -20,13 +20,13 @@
 				    <div class="col-1"></div>
 			        <div class="col-10">
 		                <table class="table">
-		                    <tr class="d-flex">
-		                        <td class="col-1">원문</td>
-		                        <td class="col-11">${srcText}</td>
+		                    <tr>
+		                        <td style="width:10%">원문</td>
+		                        <td style="width:90%">${srcText}</td>
 		                    </tr>
-		                    <tr class="d-flex">
-		                        <td class="col-1">번역문</td>
-		                        <td class="col-11" style="background-color: aliceblue;">${dstText}</td>
+		                    <tr>
+		                        <td>번역문</td>
+		                        <td style="background-color: aliceblue;">${dstText}</td>
 		                    </tr>
 		                    <tr>
 		                        <td colspan="2" style="text-align: center;">

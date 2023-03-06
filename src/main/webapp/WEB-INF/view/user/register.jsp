@@ -28,24 +28,24 @@
 	            <form action="/bbs/user/register" method="post">
 	                <table class="table table-borderless">
 	                    <tr>
-	                        <td><label for="uid">사용자 ID</label></td>
-	                        <td><input type="text" name="uid" id="uid"></td>
+	                        <td style="width:35%"><label for="uid" class="col-form-label">사용자 ID</label></td>
+	                        <td style="width:65%"><input type="text" name="uid" id="uid" class="form-control"></td>
 	                    </tr>
 	                    <tr>
-	                        <td><label for="pwd">패스워드</label></td>
-	                        <td><input type="password" name="pwd" id="pwd"></td>
+	                        <td><label for="pwd" class="col-form-label">패스워드</label></td>
+	                        <td><input type="password" name="pwd" id="pwd" class="form-control"></td>
 	                    </tr>
 	                    <tr>
-	                        <td><label for="pwd2">패스워드 확인</label></td>
-	                        <td><input type="password" name="pwd2" id="pwd2"></td>
+	                        <td><label for="pwd2" class="col-form-label">패스워드 확인</label></td>
+	                        <td><input type="password" name="pwd2" id="pwd2" class="form-control"></td>
 	                    </tr>
 	                    <tr>
-	                        <td><label for="uname">이름</label></td>
-	                        <td><input type="text" name="uname" id="uname"></td>
+	                        <td><label for="uname" class="col-form-label">이름</label></td>
+	                        <td><input type="text" name="uname" id="uname" class="form-control"></td>
 	                    </tr>
 	                    <tr>
-	                        <td><label for="email">이메일</label></td>
-	                        <td><input type="text" name="email" id="email"></td>
+	                        <td><label for="email" class="col-form-label">이메일</label></td>
+	                        <td><input type="text" name="email" id="email" class="form-control"></td>
 	                    </tr>
 	                    <tr>
 	                        <td colspan="2" style="text-align: center;">
