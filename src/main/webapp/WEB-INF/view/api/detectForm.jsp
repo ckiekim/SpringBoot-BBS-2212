@@ -17,10 +17,21 @@
             	<h3><strong>객체 탐지</strong> <small>(네이버 Object Detection API)</small></h3>
             	<hr>
                 <div class="row">
-				    <form action="/api/detect" method="post" enctype="multipart/form-data">
-				    	탐지할 파일: <input type="file" name="upload">
-				    	<button type="submit" class="btn btn-primary me-2">업로드</button>
-					</form>
+                	<div class="col-2"></div>
+                	<div class="col-8">
+					    <form action="/api/detect" method="post" enctype="multipart/form-data">
+					    	<table class="table table-borderless">
+					    		<tr>
+					    			<td style="width:15%"><label class="col-form-label">탐지할 파일</label></td>
+					    			<td style="width:70%"><input type="file" name="upload" class="form-control"></td>
+					    			<td style="width:15%; text-align:center">
+					    				<button type="submit" class="btn btn-primary me-2">업로드</button>
+					    			</td>
+					    		</tr>
+					    	</table>
+						</form>
+					</div>
+					<div class="col-2"></div>
 				</div>
             </div>
             <!-- =================== main =================== -->
