@@ -20,7 +20,15 @@
             
             <!-- =================== main =================== -->
             <div class="col-sm-9">
-            	<h3><strong>게시글 수정</strong></h3>
+            	<h3>
+            		<strong>게시글 수정</strong>
+            		<span style="font-size: 0.6em;">
+                        <a href="/bbs/board/list?p=${currentBoardPage}&f=&q=" class="ms-5"><i class="fa-solid fa-list"></i> 목록</a>
+                    </span>
+                    <span style="font-size: 0.6em;">
+                        <a href="/bbs/board/detail?bid=${board.bid}&uid=${board.uid}" class="ms-3"><i class="fa-solid fa-magnifying-glass"></i> 조회</a>
+                    </span>
+            	</h3>
             	<hr>
 	            <form action="/bbs/board/update" method="post" enctype="multipart/form-data">
 	            	<input type="hidden" name="bid" value="${board.bid}">

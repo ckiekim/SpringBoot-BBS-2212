@@ -19,7 +19,12 @@
             
             <!-- =================== main =================== -->
             <div class="col-sm-9">
-            	<h3><strong>게시글 쓰기</strong></h3>
+            	<h3>
+            		<strong>게시글 쓰기</strong>
+            		<span style="font-size: 0.6em;">
+                        <a href="/bbs/board/list?p=${currentBoardPage}&f=&q=" class="ms-5"><i class="fa-solid fa-list"></i> 목록으로</a>
+                    </span>
+            	</h3>
             	<hr>
 	            <form action="/bbs/board/write" method="post" enctype="multipart/form-data">
 	            	<input type="hidden" name="uid" value="${uid}">
