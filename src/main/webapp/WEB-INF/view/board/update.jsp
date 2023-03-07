@@ -27,13 +27,13 @@
 	            	<input type="hidden" name="uid" value="${board.uid}">
 	                <table class="table table-borderless">
 	                    <tr class="d-flex">
-	                        <td class="col-1"><label for="title" style="padding-top:0.45rem">제목</label></td>
-	                        <td class="col-11" colspan="2"><input class="form-control" type="text" name="title" id="title" value="${board.title}"></td>
+	                        <td class="col-1"><label class="col-form-label">제목</label></td>
+	                        <td class="col-11" colspan="2"><input class="form-control" type="text" name="title" value="${board.title}"></td>
 	                    </tr>
 	                    <tr class="d-flex">
-	                        <td class="col-1"><label for="content" class="col-form-label">내용</label></td>
+	                        <td class="col-1"><label class="col-form-label">내용</label></td>
 	                        <td class="col-11" colspan="2">
-	                        	<textarea class="form-control" name="content" id="content" rows="10">${board.content}</textarea>
+	                        	<textarea class="form-control" name="content" rows="10">${board.content}</textarea>
 	                        </td>
 	                    </tr>
 	                    <tr class="d-flex">
@@ -47,8 +47,8 @@
 	                    </tr>
 	                    <tr class="d-flex">
 	                    	<td class="col-1"></td>
-	                        <td class="col-1"><label for="files" class="col-form-label">추가</label></td>
-	                        <td class="col-10"><input class="form-control" type="file" name="files" id="files" multiple></td>
+	                        <td class="col-1"><label class="col-form-label">추가</label></td>
+	                        <td class="col-10"><input class="form-control" type="file" name="files" multiple></td>
 	                    </tr>
 	                    <tr>
 	                        <td colspan="2" style="text-align: center;">

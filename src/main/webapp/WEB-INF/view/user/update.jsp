@@ -27,23 +27,23 @@
 			            	<input type="hidden" name="uid" value="${user.uid}">
 			                <table class="table table-borderless">
 			                    <tr>
-			                        <td style="width:35%"><label for="uid" class="col-form-label">사용자 ID</label></td>
+			                        <td style="width:35%"><label class="col-form-label">사용자 ID</label></td>
 			                        <td style="width:65%"><input type="text" name="uid" value="${user.uid}" class="form-control" disabled></td>
 			                    </tr>
 			                    <tr>
-			                        <td><label for="pwd" class="col-form-label">패스워드</label></td>
+			                        <td><label class="col-form-label">패스워드</label></td>
 			                        <td><input type="password" name="pwd" class="form-control"></td>
 			                    </tr>
 			                    <tr>
-			                        <td><label for="pwd2" class="col-form-label">패스워드 확인</label></td>
+			                        <td><label class="col-form-label">패스워드 확인</label></td>
 			                        <td><input type="password" name="pwd2" class="form-control"></td>
 			                    </tr>
 			                    <tr>
-			                        <td><label for="uname" class="col-form-label">이름</label></td>
+			                        <td><label class="col-form-label">이름</label></td>
 			                        <td><input type="text" name="uname" value="${user.uname}" class="form-control"></td>
 			                    </tr>
 			                    <tr>
-			                        <td><label for="email" class="col-form-label">이메일</label></td>
+			                        <td><label class="col-form-label">이메일</label></td>
 			                        <td><input type="text" name="email" value="${user.email}" class="form-control"></td>
 			                    </tr>
 			                    <tr>
